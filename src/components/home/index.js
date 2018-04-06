@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import moment from 'moment';
 import 'moment-timezone';
+import DateField from '../date-field';
 import style from './style.less';
 
 export default class HomeComponent extends Component {
@@ -15,6 +16,7 @@ export default class HomeComponent extends Component {
     ],
     requestUrl: '',
     results: [],
+    invalidDate: false,
   };
 
   constructor(props) {
@@ -34,10 +36,8 @@ export default class HomeComponent extends Component {
       [target.name]: target.value,
     }, () => {
       if (!this.isAllFilled()) {
-        console.log('All field isnt filled', this.state);
         return;
       }
-      console.log('All fields are filled');
 
       this.fetchHistoricalValue();
     });
@@ -50,7 +50,7 @@ export default class HomeComponent extends Component {
   }
 
   fetchHistoricalValue() {
-    const unixDate = moment(this.state.date).unix();
+    const unixDate = moment.tz(this.state.date, 'UTC').unix();
     const requestUrl = `https://min-api.cryptocompare.com/data/histoday?fsym=${this.state.fromCurrency}&tsym=${this.state.toCurrency}&limit=0&toTs=${unixDate}&aggregate=1`;
     this.setState({
       requestUrl,
@@ -60,7 +60,7 @@ export default class HomeComponent extends Component {
       .then(jsonResponse => {
         this.setState({
           results: jsonResponse.Data
-            .map(line => ({ ...line, date: moment.tz(line.time * 1000, moment.tz.guess()).format('YYYY-MM-DD') })),
+            .map(line => ({ ...line, date: moment.tz(line.time * 1000, moment.tz.guess()).format() })),
         });
       });
   }
@@ -71,13 +71,10 @@ export default class HomeComponent extends Component {
         <h1>Konvertera valutor</h1>
 
         <form>
-          <input
-            placeholder="Date"
+          <DateField
             autofocus
-            name="date"
-            type="date"
             onChange={this.onInputChange.bind(this)}
-            value={this.state.date}
+            name="date"
           />
 
           <select
