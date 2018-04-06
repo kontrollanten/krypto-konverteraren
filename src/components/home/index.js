@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import moment from 'moment';
+import 'moment-timezone';
 import style from './style.less';
 
 export default class HomeComponent extends Component {
@@ -13,7 +14,7 @@ export default class HomeComponent extends Component {
       { FullName: 'EUR (EUR)', Symbol: 'EUR' },
     ],
     requestUrl: '',
-    history: [],
+    results: [],
   };
 
   constructor(props) {
@@ -49,7 +50,7 @@ export default class HomeComponent extends Component {
   }
 
   fetchHistoricalValue() {
-    const unixDate = moment(this.state.date).unix() + (3 * 3600);
+    const unixDate = moment(this.state.date).unix();
     const requestUrl = `https://min-api.cryptocompare.com/data/histoday?fsym=${this.state.fromCurrency}&tsym=${this.state.toCurrency}&limit=0&toTs=${unixDate}&aggregate=1`;
     this.setState({
       requestUrl,
@@ -58,8 +59,8 @@ export default class HomeComponent extends Component {
       .then(response => response.json())
       .then(jsonResponse => {
         this.setState({
-          history: jsonResponse.Data
-            .map(line => ({ ...line, date: moment.unix(line.time).format('YYYY-MM-DD') })),
+          results: jsonResponse.Data
+            .map(line => ({ ...line, date: moment.tz(line.time * 1000, moment.tz.guess()).format('YYYY-MM-DD') })),
         });
       });
   }
@@ -72,6 +73,7 @@ export default class HomeComponent extends Component {
         <form>
           <input
             placeholder="Date"
+            autofocus
             name="date"
             type="date"
             onChange={this.onInputChange.bind(this)}
@@ -99,7 +101,7 @@ export default class HomeComponent extends Component {
 
         <p>Senaste förfrågan: <input type="text" disabled value={this.state.requestUrl} /></p>
         <p>&nbsp;</p>
-        {this.state.history
+        {this.state.results
           .map(line => <p>{line.date}: Högsta värde: {line.high} Lägsta värde: {line.low}</p>)}
       </div>
     );
