@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import Clipboard from 'react-clipboard.js';
 import moment from 'moment';
 import 'moment-timezone';
 import DateField from '../date-field';
@@ -59,8 +60,16 @@ export default class HomeComponent extends Component {
       .then(response => response.json())
       .then(jsonResponse => {
         this.setState({
-          results: jsonResponse.Data
-            .map(line => ({ ...line, date: moment.tz(line.time * 1000, moment.tz.guess()).format() })),
+          results: [
+            ...jsonResponse.Data
+              .map(line => ({
+                ...line,
+                date: moment.tz(line.time * 1000, moment.tz.guess()).format('YYYY-MM-DD'),
+                fromCurrency: this.state.fromCurrency,
+                toCurrency: this.state.toCurrency,
+              })),
+            ...this.state.results,
+          ],
         });
       });
   }
@@ -96,10 +105,31 @@ export default class HomeComponent extends Component {
           </select>
         </form>
 
-        <p>Senaste förfrågan: <input type="text" disabled value={this.state.requestUrl} /></p>
+        <p>Senaste förfrågan: <input type="text" disabled value={this.state.requestUrl} style={{ width: '100%' }} /></p>
         <p>&nbsp;</p>
-        {this.state.results
-          .map(line => <p>{line.date}: Högsta värde: {line.high} Lägsta värde: {line.low}</p>)}
+        <table className={style.resultsTable}>
+          <tr>
+            <th>Datum</th>
+            <th>Högsta värde</th>
+            <th>Lägsta värde</th>
+          </tr>
+          {this.state.results
+            .map(line => (
+              <tr>
+                <td>{line.date}</td>
+                <td>
+                  <Clipboard component="a" button-href="#" data-clipboard-text={line.high}>
+                    1 {line.fromCurrency} = {line.high} USD
+                  </Clipboard>
+                </td>
+                <td>
+                  <Clipboard component="a" button-href="#" data-clipboard-text={line.low}>
+                    1 {line.toCurrency} = {line.low} USD
+                  </Clipboard>
+                </td>
+              </tr>
+            ))}
+        </table>
       </div>
     );
   }
