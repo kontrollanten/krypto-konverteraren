@@ -14,9 +14,12 @@ export default class FileManager {
       <Router>
         <ParseFile
           path={`${basePath}/:filename/tolka`}
+          currencies={this.props.currencies}
           onUpdateParseIndex={this.props.onUpdateParseIndex}
           onParseConfigFinished={this.props.onParseConfigFinished}
+          onSetStaticToCurrency={this.props.onSetStaticToCurrency}
           parseIndexes={this.props.parseIndexes}
+          staticToCurrency={this.props.staticToCurrency}
           unparsedResults={this.props.unparsedResults}
         />
         <ShowParsedFile

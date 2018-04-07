@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import Clipboard from 'react-clipboard.js';
 import Portal from 'preact-portal';
+import CurrencySelector from '../currency-selector';
 import DateField from '../date-field';
 import DropHandler from '../drop-handler';
 
@@ -70,23 +71,19 @@ export default class HomeComponent extends Component {
             name="date"
           />
 
-          <select
+          <CurrencySelector
+            currencies={this.props.currencies}
+            label="Från valuta"
             name="fromCurrency"
             onChange={this.onInputChange.bind(this)}
-          >
-            <option value="" disabled selected>Från valuta</option>
-            {this.props.currencies
-              .map(currency => <option value={currency.Symbol}>{currency.FullName}</option>)}
-          </select>
+          />
 
-          <select
+          <CurrencySelector
+            currencies={this.props.currencies}
+            label="Till valuta"
             name="toCurrency"
             onChange={this.onInputChange.bind(this)}
-          >
-            <option value="" disabled selected>Till valuta</option>
-            {this.props.currencies
-              .map(currency => <option value={currency.Symbol}>{currency.FullName}</option>)}
-          </select>
+          />
         </form>
 
         <p>Senaste förfrågan: <input type="text" disabled value={this.props.requestUrl} style={{ width: '100%' }} /></p>

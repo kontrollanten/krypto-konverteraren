@@ -3,6 +3,7 @@ import moment from 'moment';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_SUCCESS,
+  SET_STATIC_TO_CURRENCY,
   SELECT_FILE,
   SELECT_FILE_FAILURE,
   SELECT_FILE_SUCCESS,
@@ -47,7 +48,11 @@ export const parseResults = () => {
     });
 
     const state = getState().FileManager;
-    const { unparsedResults, parseIndexes } = state;
+    const {
+      parseIndexes,
+      staticToCurrency,
+      unparsedResults,
+    } = state;
     const toCurrency = 'SEK';
 
     const parsedResults = [];
@@ -80,7 +85,7 @@ export const parseResults = () => {
         }
 
         fetchHistoricalValueForCurrency({
-          fromCurrency: row.fromCurrency,
+          fromCurrency: staticToCurrency || row.fromCurrency,
           date: row.date,
           toCurrency,
         })
@@ -113,6 +118,13 @@ export const selectFile = file => {
         });
       },
     });
+  };
+};
+
+export const setStaticToCurrency = ({ symbol }) => {
+  return {
+    type: SET_STATIC_TO_CURRENCY,
+    symbol,
   };
 };
 

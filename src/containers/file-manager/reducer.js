@@ -1,5 +1,6 @@
 import {
   PARSE_RESULTS_SUCCESS,
+  SET_STATIC_TO_CURRENCY,
   SELECT_FILE,
   SELECT_FILE_FAILURE,
   SELECT_FILE_SUCCESS,
@@ -7,6 +8,7 @@ import {
 } from './types';
 
 const initialState = {
+  staticToCurrency: null,
   unparsedResults: [],
   parsedResults: [],
   parseIndexes: {
@@ -22,6 +24,15 @@ export default (state = initialState, action) => {
       return {
         ...initialState,
         parsedResults: action.parsedResults,
+      };
+    case SET_STATIC_TO_CURRENCY:
+      return {
+        ...state,
+        staticToCurrency: action.symbol,
+        parseIndexes: {
+          ...state.parseIndexes,
+          currency: null,
+        },
       };
     case SELECT_FILE_SUCCESS:
       return {

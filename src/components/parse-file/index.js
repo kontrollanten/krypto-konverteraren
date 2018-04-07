@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import history from '../../history';
 
+import CurrencySelector from '../currency-selector';
 import styles from './style.less';
 
 export default class ParseFile extends Component {
@@ -14,20 +15,21 @@ export default class ParseFile extends Component {
     super(props);
 
     this.handleClickColumn = this.handleClickColumn.bind(this);
+    this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
 
     this.setCurrentParseKey('date');
   }
 
-  componentWillReceiveProps({ parseIndexes }) {
+  componentWillReceiveProps({ parseIndexes, staticToCurrency }) {
     switch(true) {
       case parseIndexes.date === null:
         this.setCurrentParseKey('date');
         break;
-      case parseIndexes.currency === null:
-        this.setCurrentParseKey('currency');
-        break;
       case parseIndexes.amount === null:
         this.setCurrentParseKey('amount');
+        break;
+      case parseIndexes.currency === null && !staticToCurrency:
+        this.setCurrentParseKey('currency');
         break;
       default:
         this.props.onParseConfigFinished();
@@ -47,6 +49,11 @@ export default class ParseFile extends Component {
       index,
       key: this.state.currentParseKey,
     });
+  }
+
+  handleSelectCurrency({ target }) {
+    console.log(target.value);
+    this.props.onSetStaticToCurrency(target.value);
   }
 
   setCurrentParseKey(key) {
@@ -77,6 +84,15 @@ export default class ParseFile extends Component {
 
         <div className={styles.description}>
           <h2>Klicka på den kolumn som innehåller {this.state.currentParseKeyHuman}</h2>
+          <p>Om valuta-namnet inte står med i tabellen och alla transaktioner
+            är gjorda med samma valuta kan du ange en statisk valuta.</p>
+          <div>
+            <CurrencySelector
+              currencies={this.props.currencies}
+              label="Välj en statisk valuta för samtliga transakationer"
+              onChange={this.handleSelectCurrency}
+            />
+          </div>
         </div>
 
         <table className={styles.ParseTable}>
