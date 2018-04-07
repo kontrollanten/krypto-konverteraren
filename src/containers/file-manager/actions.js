@@ -16,6 +16,30 @@ export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date
     .then(response => response.json());
 };
 
+export const downloadParsedResults = () => {
+  return (dispatch, getState) => {
+    const { parsedResults } = getState().FileManager;
+
+    const fileContent = 'data:text/csv;charset=utf-8,'
+      .concat(
+        parsedResults
+          .map(row => row.join(','))
+          .join('\r\n')
+      );
+
+    const encodedFile = encodeURI(fileContent);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedFile);
+    link.setAttribute('download', 'converted-file.csv');
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  };
+};
+
 export const parseResults = () => {
   return (dispatch, getState) => {
     dispatch({

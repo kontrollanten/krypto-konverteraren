@@ -3,6 +3,10 @@ import { h, Component } from 'preact';
 import styles from './style.less';
 
 export default class ShowParsedFile extends Component {
+  handleDownload() {
+    this.props.onDownloadParsedResults();
+  }
+
   render() {
     return (
       <div className={styles.Container}>
@@ -12,6 +16,12 @@ export default class ShowParsedFile extends Component {
         {this.props.parsedResults.length > 0 &&
           <h1>Resultat för {this.props.filename}</h1>
         }
+
+        <button
+          onClick={this.handleDownload.bind(this)}
+        >
+          Ladda ner resultat
+        </button>
 
         <table className={styles.ResultsTable}>
           {this.props.parsedResults

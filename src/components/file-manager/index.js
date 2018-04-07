@@ -21,6 +21,7 @@ export default class FileManager {
         />
         <ShowParsedFile
           path={`${basePath}/:filename`}
+          onDownloadParsedResults={this.props.onDownloadParsedResults}
           parsedResults={this.props.parsedResults}
         />
         <DropHandler path={basePath} onSelectFile={this.props.onSelectFile} />
