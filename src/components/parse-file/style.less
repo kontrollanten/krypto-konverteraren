@@ -3,7 +3,6 @@
 }
 
 .ParseTable {
-  max-width:  100%;
   overflow: hidden;
   display: inline-block;
   position: relative;
@@ -12,6 +11,15 @@
   td {
     position: relative;
     cursor: pointer;
+
+    &.Selected {
+      background: #673ab7;
+      color: #fff;
+
+      &:hover {
+        cursor: default;
+      }
+    }
   }
 
   td:hover::after {
