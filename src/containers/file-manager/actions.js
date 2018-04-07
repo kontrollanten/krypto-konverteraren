@@ -81,7 +81,7 @@ export const parseResults = () => {
 
         fetchHistoricalValueForCurrency({
           fromCurrency: row.fromCurrency,
-          date: row.data,
+          date: row.date,
           toCurrency,
         })
           .then(results => {
