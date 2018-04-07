@@ -1,9 +1,11 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
+import history from '../history';
 import Header from './header';
-import Home from './home';
+import Home from '../containers/home';
 import Profile from './profile';
+import FileManager from '../containers/file-manager';
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
@@ -16,10 +18,11 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<div id="app">
+			<div>
 				<Header />
-				<Router onChange={this.handleRoute}>
+				<Router onChange={this.handleRoute} history={history}>
 					<Home path="/" />
+          <FileManager path="/las-av-fil/:filename?/:action?" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>

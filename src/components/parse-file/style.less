@@ -1,0 +1,27 @@
+.Container {
+  padding: 58px 20px;
+}
+
+.ParseTable {
+  max-width:  100%;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+
+  td {
+    position: relative;
+    cursor: pointer;
+  }
+
+  td:hover::after {
+		content: "";
+		position: absolute;
+		background-color: fade(#673ab7, 20%);
+		left: 0;
+		top: -5000px;
+		height: 10000px;
+		width: 100%;
+		z-index: -1;
+  }
+}

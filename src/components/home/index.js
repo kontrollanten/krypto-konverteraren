@@ -1,21 +1,17 @@
 import { h, Component } from 'preact';
 import Clipboard from 'react-clipboard.js';
-import moment from 'moment';
-import 'moment-timezone';
+import Portal from 'preact-portal';
 import DateField from '../date-field';
+import DropHandler from '../drop-handler';
+
 import style from './style.less';
 
 export default class HomeComponent extends Component {
   state = {
     date: '',
+    displayDropHandler: false,
     fromCurrency: '',
     toCurrency: '',
-    currencies: [
-      { FullName: 'Svenska kronor (SEK)', Symbol: 'SEK' },
-      { FullName: 'US Dollar (USD)', Symbol: 'USD' },
-      { FullName: 'EUR (EUR)', Symbol: 'EUR' },
-    ],
-    requestUrl: '',
     results: [],
     invalidDate: false,
   };
@@ -23,13 +19,15 @@ export default class HomeComponent extends Component {
   constructor(props) {
     super(props);
 
-    fetch('https://min-api.cryptocompare.com/data/all/coinlist')
-      .then(response => response.json())
-      .then(jsonResponse => {
-        this.setState({
-          currencies: [...this.state.currencies, ...Object.values(jsonResponse.Data)],
-        });
-      });
+    this.handleDragOver = this.handleDragOver.bind(this);
+
+    this.props.onLoad();
+  }
+
+  handleDragOver(event) {
+    this.setState({
+      displayDropHandler: true,
+    });
   }
 
   onInputChange({ target }) {
@@ -40,7 +38,11 @@ export default class HomeComponent extends Component {
         return;
       }
 
-      this.fetchHistoricalValue();
+      this.props.onFetchResults({
+        date: this.state.date,
+        fromCurrency: this.state.fromCurrency,
+        toCurrency: this.state.toCurrency,
+      });
     });
   }
 
@@ -51,32 +53,14 @@ export default class HomeComponent extends Component {
   }
 
   fetchHistoricalValue() {
-    const unixDate = moment.tz(this.state.date, 'UTC').unix();
-    const requestUrl = `https://min-api.cryptocompare.com/data/histoday?fsym=${this.state.fromCurrency}&tsym=${this.state.toCurrency}&limit=0&toTs=${unixDate}&aggregate=1`;
-    this.setState({
-      requestUrl,
-    });
-    fetch(requestUrl)
-      .then(response => response.json())
-      .then(jsonResponse => {
-        this.setState({
-          results: [
-            ...jsonResponse.Data
-              .map(line => ({
-                ...line,
-                date: moment.tz(line.time * 1000, moment.tz.guess()).format('YYYY-MM-DD'),
-                fromCurrency: this.state.fromCurrency,
-                toCurrency: this.state.toCurrency,
-              })),
-            ...this.state.results,
-          ],
-        });
-      });
   }
 
   render() {
     return (
-      <div class={style.home}>
+      <div class={style.home} ondragover={this.handleDragOver}>
+        {this.state.displayDropHandler && <Portal into="body">
+          <DropHandler />
+        </Portal>}
         <h1>Konvertera valutor</h1>
 
         <form>
@@ -91,7 +75,7 @@ export default class HomeComponent extends Component {
             onChange={this.onInputChange.bind(this)}
           >
             <option value="" disabled selected>Från valuta</option>
-            {this.state.currencies
+            {this.props.currencies
               .map(currency => <option value={currency.Symbol}>{currency.FullName}</option>)}
           </select>
 
@@ -100,12 +84,12 @@ export default class HomeComponent extends Component {
             onChange={this.onInputChange.bind(this)}
           >
             <option value="" disabled selected>Till valuta</option>
-            {this.state.currencies
+            {this.props.currencies
               .map(currency => <option value={currency.Symbol}>{currency.FullName}</option>)}
           </select>
         </form>
 
-        <p>Senaste förfrågan: <input type="text" disabled value={this.state.requestUrl} style={{ width: '100%' }} /></p>
+        <p>Senaste förfrågan: <input type="text" disabled value={this.props.requestUrl} style={{ width: '100%' }} /></p>
         <p>&nbsp;</p>
         <table className={style.resultsTable}>
           <tr>
@@ -113,18 +97,18 @@ export default class HomeComponent extends Component {
             <th>Högsta värde</th>
             <th>Lägsta värde</th>
           </tr>
-          {this.state.results
+          {this.props.results
             .map(line => (
               <tr>
                 <td>{line.date}</td>
                 <td>
                   <Clipboard component="a" button-href="#" data-clipboard-text={line.high}>
-                    1 {line.fromCurrency} = {line.high} USD
+                    {line.high} USD = 1 {line.fromCurrency}
                   </Clipboard>
                 </td>
                 <td>
                   <Clipboard component="a" button-href="#" data-clipboard-text={line.low}>
-                    1 {line.toCurrency} = {line.low} USD
+                    {line.low} USD = 1 {line.toCurrency}
                   </Clipboard>
                 </td>
               </tr>

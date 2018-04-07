@@ -1,0 +1,29 @@
+@purple: #673ab7;
+
+.Container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MessageBox {
+  padding: 50px;
+  border: 5px dashed @purple;
+  color: @purple;
+  border-radius: 15px;
+  vertical-align: middle;
+  font-size: 1.5em;
+
+}
+
+.MessageBox.Active {
+  background-color: fade(@purple, 60%);
+  color: #fff;
+  border-color: #fff;
+}
