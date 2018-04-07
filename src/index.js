@@ -1,8 +1,8 @@
 // import 'promise-polyfill';
 // import 'isomorphic-fetch';
 import { h, render } from 'preact';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider, compose } from 'preact-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'preact-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducer';
 import './style';
