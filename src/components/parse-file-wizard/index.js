@@ -13,37 +13,42 @@ import styles from './style.less';
 
 export default ({
   currencies,
-  currentStep,
+  currentKey,
+  doneKeys,
   handleSelectCurrency,
+  progress,
 }) => {
   const steps = [
     {
       icon: 'date_range',
       desc: 'datum',
+      key: 'date',
     },
     {
       icon: 'monetization_on',
       desc: 'belopp',
+      key: 'amount',
     },
     {
       icon: 'attach_money',
       desc: 'valuta',
+      key: 'currency',
     },
   ]
     .map((step, index) => ({ ...step, nr: index + 1 }))
     .map(step => ({
       ...step,
       className: [].concat(
-        currentStep > step.nr ? styles.Done : '',
-        currentStep < step.nr ? styles.ToBeDone : '',
-        currentStep === step.nr ? styles.Current : ''
+        doneKeys.indexOf(step.key) > -1 && currentKey !== step.key ? styles.Done : '',
+        doneKeys.indexOf(step.key) === -1 && currentKey !== step.key ? styles.ToBeDone : '',
+        currentKey === step.key ? styles.Current : ''
       ).join(' '),
     }));
 
 
   return (
     <div className={styles.Container}>
-      <LinearProgress progress={(currentStep - 1) / 3} />
+      <LinearProgress progress={progress} />
       <List>
         {steps.map(step => (
           <List.Item
@@ -57,7 +62,7 @@ export default ({
         ))}
       </List>
 
-      {currentStep == 3 && (
+      {currentKey == 'currency' && (
         <Card>
           <div className={styles.CardHeader}>
             <h2 className="mdc-typography--title">Står inte valuta-namnet i tabellen?</h2>

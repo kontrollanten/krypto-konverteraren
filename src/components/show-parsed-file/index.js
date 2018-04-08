@@ -31,7 +31,7 @@ export default class ShowParsedFile extends Component {
         {!isLoading && (
           <div>
             <h1>Resultat för {this.props.filename}</h1>
-            {errorRows.length && (
+            {!!errorRows.length && (
               <div>
                 <p>Resultatet på följande rader kunde inte konverteras:</p>
                 <List dense>

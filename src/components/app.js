@@ -22,7 +22,7 @@ export default class App extends Component {
 				<Header />
 				<Router onChange={this.handleRoute} history={history}>
 					<Home path="/" />
-          <FileManager path="/las-av-fil/:filename?/:action?" />
+          <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>

@@ -57,7 +57,7 @@ export default class DropHandler extends Component {
 
     this.props.onSelectFile(files[0]);
 
-    history.push(this.props.path.concat('/', files[0].name, '/tolka'));
+    history.push(this.props.path.concat('/', files[0].name, '/tolka/date'));
   }
 
   render() {
