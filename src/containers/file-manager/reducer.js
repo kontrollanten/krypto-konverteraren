@@ -1,4 +1,5 @@
 import {
+  PARSE_RESULTS_FAILURE,
   PARSE_RESULTS_SUCCESS,
   SET_STATIC_TO_CURRENCY,
   SELECT_FILE,
@@ -11,6 +12,7 @@ const initialState = {
   staticToCurrency: null,
   unparsedResults: [],
   parsedResults: [],
+  parseErrorRows: [],
   parseIndexes: {
     date: null,
     currency: null,
@@ -20,6 +22,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case PARSE_RESULTS_FAILURE:
+      return {
+        ...state,
+        parseErrorRows: [...state.parseErrorRows, action.row],
+      };
     case PARSE_RESULTS_SUCCESS:
       return {
         ...initialState,

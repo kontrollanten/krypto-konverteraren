@@ -2,6 +2,7 @@ import Papa from 'papaparse';
 import moment from 'moment';
 import {
   PARSE_RESULTS,
+  PARSE_RESULTS_FAILURE,
   PARSE_RESULTS_SUCCESS,
   SET_STATIC_TO_CURRENCY,
   SELECT_FILE,
@@ -97,6 +98,10 @@ export const parseResults = () => {
           })
           .catch(error => {
             parsedResults[index] = null;
+            dispatch({
+              type: PARSE_RESULTS_FAILURE,
+              row: index + 1,
+            });
 
             dispatchSuccessIfFinished();
           });

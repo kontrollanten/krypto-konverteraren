@@ -10,6 +10,7 @@ import {
 
 const mapStateToProps = state => ({
   currencies: state.Home.currencies,
+  parseErrorRows: state.FileManager.parseErrorRows,
   parseIndexes: state.FileManager.parseIndexes,
   parsedResults: state.FileManager.parsedResults,
   staticToCurrency: state.FileManager.staticToCurrency,
