@@ -69,7 +69,10 @@ module.exports = {
 						},
 						{
 							loader: 'less-loader',
-							options: { sourceMap: CSS_MAPS }
+							options: {
+                sourceMap: CSS_MAPS,
+                strictMath: true,
+              }
 						}
 					]
 				})
@@ -95,7 +98,10 @@ module.exports = {
 						},
 						{
 							loader: 'less-loader',
-							options: { sourceMap: CSS_MAPS }
+							options: {
+                sourceMap: CSS_MAPS,
+                strictMath: true,
+              },
 						}
 					]
 				})

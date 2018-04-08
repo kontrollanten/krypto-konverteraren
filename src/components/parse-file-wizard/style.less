@@ -1,0 +1,32 @@
+.Container {
+  display: grid;
+  grid-template-column: 50% 50%;
+
+  [role=progressbar] {
+    grid-column: 1 / span 3;
+  }
+
+  > :nth-child(2) {
+    grid-column: 1;
+  }
+
+  > :nth-child(3) {
+    grid-column: 2;
+  }
+}
+
+.Done {
+  text-decoration: line-through;
+}
+
+.Current {
+  font-weight: bold;
+}
+
+.ToBeDone {
+  opacity: 0.4;
+}
+
+.CardHeader {
+  padding: 8px;
+}

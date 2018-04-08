@@ -1,7 +1,8 @@
 import { h, Component } from 'preact';
 import history from '../../history';
 
-import CurrencySelector from '../currency-selector';
+import TransactionTable from '../transaction-table';
+import Wizard from '../parse-file-wizard';
 import styles from './style.less';
 
 export default class ParseFile extends Component {
@@ -9,6 +10,7 @@ export default class ParseFile extends Component {
     currentParseKey: '',
     currentParseKeyHuman: '',
     selectedIndexes: [],
+    wizardStep: 1,
   };
  
   constructor(props) {
@@ -38,8 +40,18 @@ export default class ParseFile extends Component {
     }
   }
 
+  componentDidUpdate({ parseIndexes }) {
+    if (Object.values(parseIndexes).filter(v => v !== null).length !== Object.values(this.props.parseIndexes).filter(v => v !== null).length) {
+      this.setWizardStep();
+    }
+  }
+
   handleClickColumn(event) {
-    const index = event.target.getAttribute('data-index');
+    const index = parseInt(event.target.getAttribute('data-index'));
+
+    if (this.state.selectedIndexes.indexOf(index) > -1) {
+      return;
+    }
 
     this.setState({
       selectedIndexes: [...this.state.selectedIndexes, index],
@@ -64,17 +76,27 @@ export default class ParseFile extends Component {
           currentParseKeyHuman: 'datum',
         });
 
-      case 'currency':
-        return this.setState({
-          currentParseKey: 'currency',
-          currentParseKeyHuman: 'valutanamnet',
-        });
       case 'amount':
         return this.setState({
           currentParseKey: 'amount',
           currentParseKeyHuman: 'transaktionsbelopp',
         });
+
+      case 'currency':
+        return this.setState({
+          currentParseKey: 'currency',
+          currentParseKeyHuman: 'valutanamnet',
+        });
     }
+  }
+
+  setWizardStep() {
+    this.setState({
+      wizardStep: 1 + Object.values(this.props.parseIndexes)
+        .filter(v => v !== null)
+        .length
+        + (this.props.staticToCurrency ? 1 : 0),
+    });
   }
 
   render() {
@@ -83,41 +105,17 @@ export default class ParseFile extends Component {
         <h1>Tolka filen {this.props.filename}</h1>
 
         <div className={styles.description}>
-          <h2>Klicka på den kolumn som innehåller {this.state.currentParseKeyHuman}</h2>
-          <p>Om valuta-namnet inte står med i tabellen och alla transaktioner
-            är gjorda med samma valuta kan du ange en statisk valuta.</p>
-          <div>
-            <CurrencySelector
-              currencies={this.props.currencies}
-              label="Välj en statisk valuta för samtliga transakationer"
-              onChange={this.handleSelectCurrency}
-            />
-          </div>
+          <Wizard
+            currencies={this.props.currencies}
+            currentStep={this.state.wizardStep}
+            handleSelectCurrency={this.handleSelectCurrency}
+          />
         </div>
-
-        <table className={styles.ParseTable}>
-          {this.props.unparsedResults
-            .map((row, i) => (
-              <tr key={i}>
-                {row
-                  .map((field, index) => ({
-                    field,
-                    isSelected: this.state.selectedIndexes.indexOf(index.toString()) > -1,
-                  }))
-                  .map(({ field, isSelected }, index) => (
-                    <td
-                      key={index}
-                      className={isSelected ? styles.Selected : ''}
-                      data-index={index}
-                      {...(isSelected ? {} : { onClick: this.handleClickColumn })}
-                    >
-                      {field}
-                    </td>
-                  ))
-                }
-              </tr>)
-            )}
-        </table>
+        <TransactionTable
+          rows={this.props.unparsedResults.slice(0, 10)}
+          onClick={this.handleClickColumn}
+          selectedFields={this.state.selectedIndexes}
+        />
       </div>
     );
   }

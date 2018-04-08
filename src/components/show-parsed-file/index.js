@@ -1,4 +1,10 @@
 import { h, Component } from 'preact';
+import LinearProgress from 'preact-material-components/LinearProgress';
+import 'preact-material-components/LinearProgress/style.css';
+import Button from 'preact-material-components/Button';
+import 'preact-material-components/Button/style.css';
+import 'preact-material-components/Theme/style.css';
+import TransactionTable from '../transaction-table';
 
 import styles from './style.less';
 
@@ -11,30 +17,29 @@ export default class ShowParsedFile extends Component {
     return (
       <div className={styles.Container}>
         {this.props.parsedResults.length === 0 &&
-          <h1>Hämtar resultat för {this.props.filename}</h1>
+          <div>
+            <h1>Hämtar resultat för {this.props.filename}</h1>
+            
+            <LinearProgress indeterminate />
+          </div>
         }
-        {this.props.parsedResults.length > 0 &&
-          <h1>Resultat för {this.props.filename}</h1>
-        }
+        {this.props.parsedResults.length > 0 && (
+          <div>
+            <h1>Resultat för {this.props.filename}</h1>
+            <Button
+              onClick={this.handleDownload.bind(this)}
+              raised
+              ripple
+            >
+              Ladda ner resultat
+            </Button>
 
-        <button
-          onClick={this.handleDownload.bind(this)}
-        >
-          Ladda ner resultat
-        </button>
+            <TransactionTable
+              rows={this.props.parsedResults}
+            />
+          </div>
+        )}
 
-        <table className={styles.ResultsTable}>
-          {this.props.parsedResults
-            .map((row, i) => (
-              <tr key={i}>
-                {row.map((field, index) => (
-                  <td key={index}>
-                    {field}
-                  </td>
-                ))}
-              </tr>
-            ))}
-        </table>
       </div>
     );
   }

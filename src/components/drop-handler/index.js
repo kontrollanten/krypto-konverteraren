@@ -69,6 +69,11 @@ export default class DropHandler extends Component {
         ondragleave={this.handleDragLeave}
         onDrop={this.handleDrop}
       >
+        <div className={styles.Description}>
+          <h1>Läs av växelkurs från en CSV-fil</h1>
+          <p>Ladda upp en CSV-fil för att konvertera växelkursen för
+            respektive rad.</p>
+        </div>
         <div className={[styles.MessageBox].concat(this.state.hovering && styles.Active).join(' ')}>
           <strong>
             Släpp din fil här

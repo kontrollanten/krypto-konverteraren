@@ -1,4 +1,7 @@
 import { h, Component } from 'preact';
+import TextField from 'preact-material-components/TextField';
+import 'preact-material-components/TextField/style.css';
+
 import moment from 'moment';
 
 export default class DateField extends Component {
@@ -44,9 +47,9 @@ export default class DateField extends Component {
 
     return (
       <div>
-        <input
+        <TextField
           type="text"
-          placeholder="YYYY-mm-dd"
+          label="YYYY-mm-dd"
           value={this.state.date}
           onInput={this.handleInputChange.bind(this)}
           {...inputProps}

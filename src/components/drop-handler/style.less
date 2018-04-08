@@ -1,14 +1,13 @@
 @purple: #673ab7;
 
 .Container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 58px 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 58px;
+}
+
+.Description {
 }
 
 .MessageBox {
@@ -16,9 +15,12 @@
   border: 5px dashed @purple;
   color: @purple;
   border-radius: 15px;
-  vertical-align: middle;
+  text-align: center;
   font-size: 1.5em;
-
+  width: 50%;
+  min-width: 290px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .MessageBox.Active {
