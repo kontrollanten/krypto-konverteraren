@@ -23,6 +23,7 @@ export default class DropHandler extends Component {
     event.stopPropagation();
 
     this.setState({
+      error: '',
       hovering: true,
       enterCounter: this.state.enterCounter + 1,
     });
@@ -46,11 +47,20 @@ export default class DropHandler extends Component {
 
   handleDrop(event) {
     event.preventDefault();
+    this.handleDragLeave();
     const { files } = event.dataTransfer;
+    const file = files[0]
 
     if (files.length > 1) {
       this.setState({
         error: 'Du kan bara ladda upp en fil i taget.',
+      });
+      return;
+    }
+
+    if (file.type !== 'text/csv') {
+      this.setState({
+        error: 'Filen är inte en CSV-fil.',
       });
       return;
     }
@@ -79,7 +89,7 @@ export default class DropHandler extends Component {
             Släpp din fil här
           </strong>
           
-          {this.state.error && <div>{this.state.error}</div>}
+          {this.state.error && <div className={styles.Error}>{this.state.error}</div>}
         </div>
       </div>
     );
