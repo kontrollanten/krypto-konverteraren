@@ -7,6 +7,7 @@ import 'preact-material-components/Theme/style.css';
 import List from 'preact-material-components/List';
 import 'preact-material-components/List/style.css';
 import TransactionTable from '../transaction-table';
+import Header  from '../file-manager-header';
 
 import styles from './style.less';
 
@@ -24,7 +25,16 @@ export default class ShowParsedFile extends Component {
 
     return (
       <div className={styles.Container}>
-        <h1>Resultat för {this.props.filename}</h1>
+        <Header>
+          <h1>Resultat för {this.props.filename}</h1>
+          <Button
+            onClick={this.handleDownload.bind(this)}
+            raised
+            ripple
+          >
+            Ladda ner resultat
+          </Button>
+        </Header>
         <h2>{parsedRows} av {nrExpectedResults} konverterades</h2>
         <LinearProgress progress={progress} />
         {!!errorRows.length && (
@@ -37,13 +47,6 @@ export default class ShowParsedFile extends Component {
             </List>
           </div>
         )}
-        <Button
-          onClick={this.handleDownload.bind(this)}
-          raised
-          ripple
-        >
-          Ladda ner resultat
-        </Button>
 
         <TransactionTable
           rows={this.props.parsedResults}

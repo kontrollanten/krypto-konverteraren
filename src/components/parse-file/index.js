@@ -6,6 +6,7 @@ import history from '../../history';
 
 import TransactionTable from '../transaction-table';
 import Wizard from '../parse-file-wizard';
+import Header  from '../file-manager-header';
 import styles from './style.less';
 
 export default class ParseFile extends Component {
@@ -86,7 +87,7 @@ export default class ParseFile extends Component {
   render() {
     return (
       <div className={styles.Container}>
-        <div className={styles.Header}>
+        <Header>
           <h1>Tolka filen {this.props.filename}</h1>
           <Button
             disabled={this.state.progress < 1}
@@ -96,7 +97,7 @@ export default class ParseFile extends Component {
           >
             Nästa
           </Button>
-        </div>
+        </Header>
 
         <div className={styles.description}>
           <Wizard
