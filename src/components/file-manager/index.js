@@ -24,6 +24,7 @@ export default class FileManager {
         />
         <ShowParsedFile
           path={`${basePath}/:filename`}
+          nrExpectedResults={this.props.nrExpectedResults}
           onDownloadParsedResults={this.props.onDownloadParsedResults}
           parseErrorRows={this.props.parseErrorRows}
           parsedResults={this.props.parsedResults}

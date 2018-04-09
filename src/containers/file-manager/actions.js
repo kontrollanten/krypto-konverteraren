@@ -44,10 +44,6 @@ export const downloadParsedResults = () => {
 
 export const parseResults = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: PARSE_RESULTS,
-    });
-
     const state = getState().FileManager;
     const {
       parseIndexes,
@@ -55,19 +51,12 @@ export const parseResults = () => {
       unparsedResults,
     } = state;
     const toCurrency = 'SEK';
-
     const parsedResults = [];
 
-    const dispatchSuccessIfFinished = () => {
-      if (parsedResults.filter(row => !!row).length !== unparsedResults.length) {
-        return;
-      }
-
-      dispatch({
-        type: PARSE_RESULTS_SUCCESS,
-        parsedResults,
-      });
-    };
+    dispatch({
+      type: PARSE_RESULTS,
+      nrExpectedResults: unparsedResults.length,
+    });
 
     unparsedResults
       .map(row => ({
@@ -94,7 +83,10 @@ export const parseResults = () => {
             const currencyValue = Object.values(Object.values(results).pop()).pop();
             parsedResults[index] = [...unparsedResults[index], currencyValue * row.amount];
 
-            dispatchSuccessIfFinished();
+            dispatch({
+              type: PARSE_RESULTS_SUCCESS,
+              parsedResults,
+            });
           })
           .catch(error => {
             parsedResults[index] = null;
@@ -102,8 +94,6 @@ export const parseResults = () => {
               type: PARSE_RESULTS_FAILURE,
               row: index + 1,
             });
-
-            dispatchSuccessIfFinished();
           });
       });
   };

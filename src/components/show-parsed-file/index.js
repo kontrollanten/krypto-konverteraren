@@ -17,44 +17,37 @@ export default class ShowParsedFile extends Component {
 
   render() {
     const errorRows = this.props.parseErrorRows;
-    const isLoading = (this.props.parsedResults.length + this.props.parseErrorRows.length) === 0;
+    const parsedRows = this.props.parsedResults.filter(r => r !== undefined).length;
+    const nrExpectedResults = this.props.nrExpectedResults;
+    const progress = (parsedRows + errorRows) / nrExpectedResults;
+    const isLoading = progress !== 1.0;
 
     return (
       <div className={styles.Container}>
-        {isLoading &&
+        <h1>Resultat för {this.props.filename}</h1>
+        <h2>{parsedRows} av {nrExpectedResults} konverterades</h2>
+        <LinearProgress progress={progress} />
+        {!!errorRows.length && (
           <div>
-            <h1>Hämtar resultat för {this.props.filename}</h1>
-            
-            <LinearProgress indeterminate />
-          </div>
-        }
-        {!isLoading && (
-          <div>
-            <h1>Resultat för {this.props.filename}</h1>
-            {!!errorRows.length && (
-              <div>
-                <p>Resultatet på följande rader kunde inte konverteras:</p>
-                <List dense>
-                  {errorRows.map(row => (
-                    <List.Item>{row}</List.Item>
-                  ))}
-                </List>
-              </div>
-            )}
-            <Button
-              onClick={this.handleDownload.bind(this)}
-              raised
-              ripple
-            >
-              Ladda ner resultat
-            </Button>
-
-            <TransactionTable
-              rows={this.props.parsedResults}
-            />
+            <p>Resultatet på följande rader kunde inte konverteras:</p>
+            <List dense>
+              {errorRows.map(row => (
+                <List.Item>{row}</List.Item>
+              ))}
+            </List>
           </div>
         )}
+        <Button
+          onClick={this.handleDownload.bind(this)}
+          raised
+          ripple
+        >
+          Ladda ner resultat
+        </Button>
 
+        <TransactionTable
+          rows={this.props.parsedResults}
+        />
       </div>
     );
   }

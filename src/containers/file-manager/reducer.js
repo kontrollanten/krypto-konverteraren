@@ -1,4 +1,5 @@
 import {
+  PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
   PARSE_RESULTS_SUCCESS,
   SET_STATIC_TO_CURRENCY,
@@ -9,6 +10,7 @@ import {
 } from './types';
 
 const initialState = {
+  nrExpectedResults: 0,
   staticToCurrency: null,
   unparsedResults: [],
   parsedResults: [],
@@ -22,6 +24,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case PARSE_RESULTS:
+      return {
+        ...state,
+        nrExpectedResults: action.nrExpectedResults,
+        parsedResults: [],
+      };
     case PARSE_RESULTS_FAILURE:
       return {
         ...state,
@@ -30,7 +38,8 @@ export default (state = initialState, action) => {
     case PARSE_RESULTS_SUCCESS:
       return {
         ...initialState,
-        parsedResults: action.parsedResults,
+        nrExpectedResults: state.nrExpectedResults,
+        parsedResults: [...action.parsedResults],
       };
     case SET_STATIC_TO_CURRENCY:
       return {
