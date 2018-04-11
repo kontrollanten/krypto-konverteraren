@@ -7,7 +7,7 @@ import DropHandler from '../drop-handler';
 
 import style from './style.less';
 
-export default class HomeComponent extends Component {
+export default class ConvertCurrencyComponent extends Component {
   state = {
     date: '',
     displayDropHandler: false,
@@ -58,7 +58,7 @@ export default class HomeComponent extends Component {
 
   render() {
     return (
-      <div class={style.home} ondragover={this.handleDragOver}>
+      <div class={style.ConvertCurrency} ondragover={this.handleDragOver}>
         {this.state.displayDropHandler && <Portal into="body">
           <DropHandler />
         </Portal>}

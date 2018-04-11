@@ -1,12 +1,12 @@
 import { connect } from 'preact-redux';
 import { fetchCurrencies, fetchResults } from './actions';
-import Home from '../../components/home';
+import ConvertCurrency from '../../components/convert-currency';
 
 const mapStateToProps = state => ({
-  currencies: state.Home.currencies,
+  currencies: state.ConvertCurrency.currencies,
   fromCurrency: '',
-  results: state.Home.results,
-  requestUrl: state.Home.requestUrl,
+  results: state.ConvertCurrency.results,
+  requestUrl: state.ConvertCurrency.requestUrl,
   toCurrency: '',
 });
 
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(ConvertCurrency);

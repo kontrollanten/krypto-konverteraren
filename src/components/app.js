@@ -3,7 +3,7 @@ import { Router } from 'preact-router';
 
 import history from '../history';
 import Header from './header';
-import Home from '../containers/home';
+import ConvertCurrency from '../containers/convert-currency';
 import Profile from './profile';
 import FileManager from '../containers/file-manager';
 
@@ -21,7 +21,7 @@ export default class App extends Component {
 			<div>
 				<Header />
 				<Router onChange={this.handleRoute} history={history}>
-					<Home path="/" />
+					<ConvertCurrency path="/" />
           <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
