@@ -1,0 +1,55 @@
+@import '~style/variables';
+
+.Header {
+  background-color: darken(@brand-primary, 10%);
+  margin: 0 -20px;
+  height: 300px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.Presentation {
+  display: grid;
+  grid-template-areas: "a a a a a a"
+  "c c c c c c";
+  grid-template-columns: repeat(6, 1fr);
+
+  > div {
+    padding: 20px;
+    grid-area: a;
+
+    &:nth-child(1) {
+      grid-column-end: 4;
+    }
+
+    &:nth-child(2) {
+      grid-column-start: 4;
+    }
+
+    &:nth-child(3) {
+      grid-column-start: 2;
+      grid-column-end: 6;
+    }
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  p,
+  li {
+    font-size: 1.1em;
+    line-height: 1.4em;
+  }
+
+  li {
+    margin: 5px 0;
+  }
+
+  .When {
+    grid-area: c;
+  }
+}
