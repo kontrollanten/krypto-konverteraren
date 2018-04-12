@@ -7,10 +7,10 @@ export default class Header extends Component {
 		return (
 			<header class={style.header}>
 				<h1><Link href="/">K4 Krypto</Link></h1>
-        <nav>
+        {false && <nav>
           <Link href="/">Konvertera valutor</Link>
           <Link href="/las-av-fil">Ladda upp fil</Link>
-        </nav>
+        </nav>}
 			</header>
 		);
 	}
