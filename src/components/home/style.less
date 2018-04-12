@@ -9,6 +9,16 @@
   justify-content: center;
   align-items: center;
   text-shadow: 1px 1px 1px #000;
+
+  :global(.mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea)) {
+    border-color: #fff;
+  }
+
+  :global(.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input::placeholder),
+  :global(.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input),
+  :global(.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label) {
+    color: #fff;
+  }
 }
 
 .Presentation {

@@ -2,6 +2,7 @@ import { h } from 'preact';
 import List from 'preact-material-components/List';
 import 'preact-material-components/List/style.css';
 import ContentWrapper from '../content-wrapper';
+import SubscribeToNewsletter from '../subscribe-to-newsletter';
 import styles from './style.less';
 
 export default () => (
@@ -9,7 +10,9 @@ export default () => (
     <div className={styles.Header}>
       <div>
         <h1>Har du handlat med kryptovalutor?</h1>
-        <h2>Generera din K4-blankett med ett par klick!</h2>
+        <h2>Förenkla din inkomstdeklaration med ett par klick!</h2>
+        <p>Anmäl dig till vårat nyhetsbrev för att bli meddelad när vi lanserar.</p>
+        <SubscribeToNewsletter />
       </div>
     </div>
     <div className={styles.Presentation}>

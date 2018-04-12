@@ -1,0 +1,18 @@
+.Container {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-column-gap: 20px;
+  align-items: end;
+
+  :nth-child(1) {
+    grid-column: 1;
+  }
+
+  :nth-child(2) {
+    grid-column: 2;
+  }
+
+  :global(.mdc-button--raised:disabled) {
+    color: #fff;
+  }
+}
