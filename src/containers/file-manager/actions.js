@@ -12,10 +12,24 @@ import {
 } from './types';
 
 export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => {
-  const timestamp = moment(date).unix();
+  const toTs = moment(date).unix();
+  // CryptoCompare responds with the last two hours prices so we add one hour to our req
+  const fromTs = moment(date).subtract(1, 'hour').unix();
 
-  return fetch(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=${fromCurrency}&tsyms=${toCurrency}&ts=${timestamp}&extraParams=krypto-konverteraren`)
-    .then(response => response.json());
+  return fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=SEK&toTs=1511452563&extraParams=krypto-konverteraren&limit=1`)
+    .then(response => response.json())
+    .then(jsonResponse => {
+      return jsonResponse.Data
+        .map(data => {
+          return {
+            ...data,
+            middlePrice: (data.open + data.close) / 2,
+          };
+        })
+        .reduce((prev, curr) => {
+          return (Math.abs(curr.time - toTs) < Math.abs(prev.time - toTs) ? curr : prev);
+        }, { time: 0 });
+    });
 };
 
 export const downloadParsedResults = () => {
@@ -79,9 +93,12 @@ export const parseResults = () => {
           date: row.date,
           toCurrency,
         })
-          .then(results => {
-            const currencyValue = Object.values(Object.values(results).pop()).pop();
-            parsedResults[index] = [...unparsedResults[index], currencyValue * row.amount];
+          .then(({ middlePrice }) => {
+            if (isNaN(middlePrice)) {
+              throw Error();
+            }
+            // const currencyValue = Object.values(Object.values(results).pop()).pop();
+            parsedResults[index] = [...unparsedResults[index], middlePrice * row.amount];
 
             dispatch({
               type: PARSE_RESULTS_SUCCESS,

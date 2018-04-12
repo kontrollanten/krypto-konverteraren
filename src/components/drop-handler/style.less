@@ -8,11 +8,18 @@
 }
 
 .Error {
-  color: red;
+  border-bottom: 3px solid red;
+  padding-top: 20px;
+  font-size: 0.8em;
+  display: inline-block;
+  align-self: center;
 }
 
 .MessageBox {
-  padding: 50px;
+  display: flex;
+  min-height: 200px;
+  flex-direction: column;
+  justify-content: center;
   border: 5px dashed @purple;
   color: @purple;
   border-radius: 15px;

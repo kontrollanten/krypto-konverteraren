@@ -60,7 +60,7 @@ export default class DropHandler extends Component {
 
     if (file.type !== 'text/csv') {
       this.setState({
-        error: 'Filen är inte en CSV-fil.',
+        error: `${file.name} är inte en CSV-fil.`,
       });
       return;
     }
