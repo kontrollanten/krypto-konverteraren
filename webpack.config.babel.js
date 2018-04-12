@@ -135,7 +135,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './manifest.json', to: './' },
-      { from: './favicon.ico', to: './' }
+      { from: './favicon.ico', to: './' },
+      { from: './google*.html', to: './' },
     ])
   ]).concat(ENV==='production' ? [
     new webpack.optimize.UglifyJsPlugin({
