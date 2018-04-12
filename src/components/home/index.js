@@ -6,7 +6,7 @@ import SubscribeToNewsletter from '../subscribe-to-newsletter';
 import styles from './style.less';
 
 export default () => (
-  <ContentWrapper>
+  <ContentWrapper className={styles.Container}>
     <div className={styles.Header}>
       <div>
         <h1>Har du handlat med kryptovalutor?</h1>

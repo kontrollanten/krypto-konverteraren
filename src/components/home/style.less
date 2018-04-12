@@ -1,13 +1,22 @@
 @import '~style/variables';
 
+.Container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   background-color: darken(@brand-primary, 10%);
   margin: 0 -20px;
   height: 300px;
   color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-shadow: 1px 1px 1px #000;
 
   :global(.mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea)) {
@@ -22,6 +31,7 @@
 }
 
 .Presentation {
+  max-width: 1000px;
   display: grid;
   grid-template-areas: "a a a a a a"
   "c c c c c c";
