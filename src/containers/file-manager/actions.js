@@ -56,9 +56,9 @@ export const downloadParsedResults = () => {
   };
 };
 
-export const parseResults = () => {
+export const parseResults = (filename) => {
   return (dispatch, getState) => {
-    const state = getState().FileManager;
+    const state = getState().FileManager[filename];
     const {
       parseIndexes,
       staticToCurrency,
@@ -70,6 +70,7 @@ export const parseResults = () => {
     dispatch({
       type: PARSE_RESULTS,
       nrExpectedResults: unparsedResults.length,
+      filename,
     });
 
     unparsedResults
@@ -97,11 +98,11 @@ export const parseResults = () => {
             if (isNaN(middlePrice)) {
               throw Error();
             }
-            // const currencyValue = Object.values(Object.values(results).pop()).pop();
             parsedResults[index] = [...unparsedResults[index], middlePrice * row.amount];
 
             dispatch({
               type: PARSE_RESULTS_SUCCESS,
+              filename,
               parsedResults,
             });
           })
@@ -109,6 +110,7 @@ export const parseResults = () => {
             parsedResults[index] = null;
             dispatch({
               type: PARSE_RESULTS_FAILURE,
+              filename,
               row: index + 1,
             });
           });
@@ -120,12 +122,14 @@ export const selectFile = file => {
   return dispatch => {
     dispatch({
       type: SELECT_FILE,
+      filename: file.name,
     });
 
     Papa.parse(file, {
       complete: results => {
         dispatch({
           type: SELECT_FILE_SUCCESS,
+          filename: file.name,
           results: results.data,
         });
       },
@@ -133,16 +137,18 @@ export const selectFile = file => {
   };
 };
 
-export const setStaticToCurrency = ({ symbol }) => {
+export const setStaticToCurrency = ({ symbol, filename }) => {
   return {
     type: SET_STATIC_TO_CURRENCY,
     symbol,
+    filename,
   };
 };
 
-export const updateParseIndex = ({ key, index }) => {
+export const updateParseIndex = ({ filename, key, index }) => {
   return {
     type: UPDATE_PARSE_INDEXES,
+    filename,
     key,
     index,
   };

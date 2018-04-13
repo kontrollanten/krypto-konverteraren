@@ -8,22 +8,26 @@ import {
   updateParseIndex,
 } from './actions';
 
-const mapStateToProps = state => ({
-  currencies: state.ConvertCurrency.currencies,
-  nrExpectedResults: state.FileManager.nrExpectedResults,
-  parseErrorRows: state.FileManager.parseErrorRows,
-  parseIndexes: state.FileManager.parseIndexes,
-  parsedResults: state.FileManager.parsedResults,
-  staticToCurrency: state.FileManager.staticToCurrency,
-  unparsedResults: state.FileManager.unparsedResults,
-});
+const mapStateToProps = (state, ownProps) => {
+  const fileState = state.FileManager[ownProps.filename] || {};
+
+  return {
+    currencies: state.ConvertCurrency.currencies,
+    nrExpectedResults: fileState.nrExpectedResults,
+    parseErrorRows: fileState.parseErrorRows,
+    parseIndexes: fileState.parseIndexes,
+    parsedResults: fileState.parsedResults,
+    staticToCurrency: fileState.staticToCurrency,
+    unparsedResults: fileState.unparsedResults,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   onDownloadParsedResults: () => dispatch(downloadParsedResults()),
   onSelectFile: file => dispatch(selectFile(file)),
   onSetStaticToCurrency: symbol => dispatch(setStaticToCurrency({ symbol })),
-  onParseConfigFinished: () => dispatch(parseResults()),
-  onUpdateParseIndex: ({ key, index }) => dispatch(updateParseIndex({ key, index })),
+  onParseConfigFinished: (filename) => dispatch(parseResults(filename)),
+  onUpdateParseIndex: (options) => dispatch(updateParseIndex(options)),
 });
 
 export default connect(

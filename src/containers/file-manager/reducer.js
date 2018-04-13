@@ -9,7 +9,7 @@ import {
   UPDATE_PARSE_INDEXES,
 } from './types';
 
-const initialState = {
+const initialSubstate = {
   nrExpectedResults: 0,
   staticToCurrency: null,
   unparsedResults: [],
@@ -22,45 +22,68 @@ const initialState = {
   },
 };
 
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case PARSE_RESULTS:
       return {
         ...state,
-        nrExpectedResults: action.nrExpectedResults,
-        parsedResults: [],
+        [action.filename]: {
+          ...state[action.filename],
+          nrExpectedResults: action.nrExpectedResults,
+        },
       };
     case PARSE_RESULTS_FAILURE:
       return {
         ...state,
-        parseErrorRows: [...state.parseErrorRows, action.row],
+        [action.filename]: {
+          ...state[action.filename],
+          parseErrorRows: [...state[action.filename].parseErrorRows, action.row],
+        },
       };
     case PARSE_RESULTS_SUCCESS:
       return {
-        ...initialState,
-        nrExpectedResults: state.nrExpectedResults,
-        parsedResults: [...action.parsedResults],
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          parsedResults: [...action.parsedResults],
+        },
       };
     case SET_STATIC_TO_CURRENCY:
       return {
         ...state,
-        staticToCurrency: action.symbol,
-        parseIndexes: {
-          ...state.parseIndexes,
-          currency: null,
+        [action.filename]: {
+          ...state[action.filename],
+          staticToCurrency: action.symbol,
+          parseIndexes: {
+            ...state[action.filename].parseIndexes,
+            currency: null,
+          },
+        },
+      };
+    case SELECT_FILE:
+      return {
+        ...state,
+        [action.filename]: {
+          ...initialSubstate,
         },
       };
     case SELECT_FILE_SUCCESS:
       return {
         ...state,
-        unparsedResults: action.results,
+        [action.filename]: {
+          ...state[action.filename],
+          unparsedResults: action.results,
+        },
       };
     case UPDATE_PARSE_INDEXES:
       return {
         ...state,
-        parseIndexes: {
-          ...state.parseIndexes,
-          [action.key]: action.index,
+        [action.filename]: {
+          ...state[action.filename],
+          parseIndexes: {
+            ...state[action.filename].parseIndexes,
+            [action.key]: action.index,
+          },
         },
       };
   }

@@ -21,9 +21,6 @@ export default class ParseFile extends Component {
     this.handleClickColumn = this.handleClickColumn.bind(this);
     this.handleClickNext = this.handleClickNext.bind(this);
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
-
-    this.updateSelectedTableIndexes(this.props.parseIndexes, this.props.parseKey);
-    this.setWizardStep();
   }
 
   componentDidUpdate({ parseIndexes, parseKey }) {
@@ -31,14 +28,14 @@ export default class ParseFile extends Component {
       this.updateSelectedTableIndexes(this.props.parseIndexes, this.props.parseKey);
     }
 
-    if (Object.values(parseIndexes).filter(v => v !== null).length !== Object.values(this.props.parseIndexes).filter(v => v !== null).length) {
+    if (parseIndexes && Object.values(parseIndexes).filter(v => v !== null).length !== Object.values(this.props.parseIndexes).filter(v => v !== null).length) {
       this.updateSelectedTableIndexes(this.props.parseIndexes, this.props.parseKey);
       this.setWizardStep();
     }
   }
 
   handleClickNext() {
-    this.props.onParseConfigFinished();
+    this.props.onParseConfigFinished(this.props.filename);
     const nextPath = this.props.url.split('/').filter(section => section !== 'tolka').join('/');
     history.push(nextPath);
   }
@@ -53,6 +50,7 @@ export default class ParseFile extends Component {
     this.props.onUpdateParseIndex({
       index,
       key: this.props.parseKey,
+      filename: this.props.filename,
     });
 
     const nextKey = Object.keys(this.props.parseIndexes)
@@ -100,19 +98,19 @@ export default class ParseFile extends Component {
         </Header>
 
         <div className={styles.description}>
-          <Wizard
+          {this.props.parseIndexes && <Wizard
             currencies={this.props.currencies}
             currentKey={this.props.parseKey}
             doneKeys={Object.keys(this.props.parseIndexes).filter(v => this.props.parseIndexes[v] !== null)}
             handleSelectCurrency={this.handleSelectCurrency}
             progress={this.state.progress}
-          />
+          />}
         </div>
-        <TransactionTable
+        {this.props.unparsedResults && <TransactionTable
           rows={this.props.unparsedResults.slice(0, 10)}
           onClick={this.handleClickColumn}
           selectedFields={this.state.selectedTableIndexes}
-        />
+        />}
       </div>
     );
   }
