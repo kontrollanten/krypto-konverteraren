@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 import moment from 'moment';
-import { validateColumnCount } from '../file-validator/actions';
+import { validateColumnCount, validateDateColumns } from '../file-validator/actions';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -151,11 +151,21 @@ export const setStaticToCurrency = ({ symbol, filename }) => {
 };
 
 export const updateParseIndex = ({ filename, key, index }) => {
-  return {
-    type: UPDATE_PARSE_INDEXES,
-    filename,
-    key,
-    index,
+  return (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_PARSE_INDEXES,
+      filename,
+      key,
+      index,
+    });
+
+    const rows = getState().FileManager[filename].unparsedResults;
+
+    switch (key) {
+      case 'date':
+        dispatch(validateDateColumns({filename, rows: rows.slice(1), dateIndex: index}));
+    };
   };
+  return ;
 };
 

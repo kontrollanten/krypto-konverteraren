@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
     parsedResults: fileState.parsedResults,
     staticToCurrency: fileState.staticToCurrency,
     unparsedResults: fileState.unparsedResults,
-    validationErrorMessage: validationState.validationErrorMessage,
+    validationErrorMessage: validationState.errorMessage,
   };
 };
 

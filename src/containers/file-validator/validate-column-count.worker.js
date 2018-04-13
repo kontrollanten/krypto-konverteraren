@@ -12,7 +12,7 @@ const validateColumns = rows => {
     return Error(`Rad ${invariants.rowNr} har inte samma antal kolumner som rad 1: ${invariants.nrColumns} vs ${nrColumns}.`);
   }
 
-  return true;
+  return;
 };
 
 self.addEventListener('message', event => {
