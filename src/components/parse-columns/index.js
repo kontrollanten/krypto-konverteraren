@@ -5,11 +5,11 @@ import 'preact-material-components/Theme/style.css';
 import history from '../../history';
 
 import TransactionTable from '../transaction-table';
-import Wizard from '../parse-file-wizard';
+import Wizard from '../parse-columns-wizard';
 import Header  from '../file-manager-header';
 import styles from './style.less';
 
-export default class ParseFile extends Component {
+export default class ParseColumns extends Component {
   state = {
     progress: 0,
     selectedTableIndexes: [],
@@ -40,7 +40,7 @@ export default class ParseFile extends Component {
 
   handleClickNext() {
     this.props.onParseConfigFinished(this.props.filename);
-    const nextPath = this.props.url.slice(0, this.props.url.indexOf('/tolka'));
+    const nextPath = this.props.url.slice(0, this.props.url.indexOf('/tolka-kolumner'));
     history.push(nextPath);
   }
 

@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import DropHandler from '../drop-handler';
-import ParseFile from '../parse-file';
+import ParseColumns from '../parse-columns';
 import ShowParsedFile from '../show-parsed-file';
 import styles from './style.less';
 
@@ -12,8 +12,8 @@ export default class FileManager {
 
     return (
       <Router>
-        <ParseFile
-          path={`${basePath}/:filename/tolka/:parseKey?`}
+        <ParseColumns
+          path={`${basePath}/:filename/tolka-kolumner/:parseKey?`}
           currencies={this.props.currencies}
           onUpdateParseIndex={this.props.onUpdateParseIndex}
           onParseConfigFinished={this.props.onParseConfigFinished}
