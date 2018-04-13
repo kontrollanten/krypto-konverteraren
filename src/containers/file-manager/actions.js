@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 import moment from 'moment';
-import { validateColumnCount, validateDateColumns } from '../file-validator/actions';
+import { validateAmountColumns, validateColumnCount, validateDateColumns } from '../file-validator/actions';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -164,6 +164,10 @@ export const updateParseIndex = ({ filename, key, index }) => {
     switch (key) {
       case 'date':
         dispatch(validateDateColumns({filename, rows: rows.slice(1), dateIndex: index}));
+        break;
+      case 'amount':
+        dispatch(validateAmountColumns({ filename, rows: rows.slice(1), amountIndex: index }));
+        break;
     };
   };
   return ;

@@ -1,5 +1,8 @@
 import { SELECT_FILE } from '../file-manager/types';
 import {
+  VALIDATE_AMOUNT_COLUMNS,
+  VALIDATE_AMOUNT_COLUMNS_FAILURE,
+  VALIDATE_AMOUNT_COLUMNS_SUCCESS,
   VALIDATE_DATE_COLUMNS,
   VALIDATE_DATE_COLUMNS_FAILURE,
   VALIDATE_DATE_COLUMNS_SUCCESS,
@@ -10,6 +13,7 @@ import {
 
 const initialSubState = {
   columnCountValidated: false,
+  amountColumnValidated: false,
   dateColumnValidated: false,
   errorMessage: null,
   validating: false,
@@ -22,6 +26,32 @@ export default (state = {}, action) => {
         ...state,
         [action.filename]: {
           ...initialSubState,
+        },
+      };
+    case VALIDATE_AMOUNT_COLUMNS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          validating: true,
+        },
+      };
+    case VALIDATE_AMOUNT_COLUMNS_FAILURE:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          errorMessage: action.errorMessage,
+          validating: false,
+        },
+      };
+    case VALIDATE_AMOUNT_COLUMNS_SUCCESS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          amountColumnValidated: true,
+          validating: false,
         },
       };
     case VALIDATE_DATE_COLUMNS:
