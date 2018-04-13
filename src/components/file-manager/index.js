@@ -21,6 +21,7 @@ export default class FileManager {
           parseIndexes={this.props.parseIndexes}
           staticToCurrency={this.props.staticToCurrency}
           unparsedResults={this.props.unparsedResults}
+          validationErrorMessage={this.props.validationErrorMessage}
         />
         <ShowParsedFile
           path={`${basePath}/:filename`}

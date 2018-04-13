@@ -11,6 +11,7 @@ import {
 
 const mapStateToProps = (state, ownProps) => {
   const fileState = state.FileManager[ownProps.filename] || {};
+  const validationState = state.FileValidator[ownProps.filename] || {};
 
   return {
     currencies: state.ConvertCurrency.currencies,
@@ -20,6 +21,7 @@ const mapStateToProps = (state, ownProps) => {
     parsedResults: fileState.parsedResults,
     staticToCurrency: fileState.staticToCurrency,
     unparsedResults: fileState.unparsedResults,
+    validationErrorMessage: validationState.validationErrorMessage,
   };
 };
 

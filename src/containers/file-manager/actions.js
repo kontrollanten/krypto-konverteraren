@@ -1,5 +1,6 @@
 import Papa from 'papaparse';
 import moment from 'moment';
+import { validateColumnCount } from '../file-validator/actions';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -127,10 +128,14 @@ export const selectFile = file => {
 
     Papa.parse(file, {
       complete: results => {
+        const rows = results.data;
+
+        dispatch(validateColumnCount(file.name, rows));
+
         dispatch({
           type: SELECT_FILE_SUCCESS,
           filename: file.name,
-          results: results.data,
+          results: rows,
         });
       },
     });

@@ -87,6 +87,18 @@ export default class ParseFile extends Component {
   }
 
   render() {
+    if (this.props.validationErrorMessage) {
+      return (
+        <div className={styles.Container}>
+          <Header>
+            <h1>Någonting gick fel</h1>
+          </Header>
+          <p>Vi lyckades inte validera filen {this.props.filename}:</p>
+          <p><strong>{this.props.validationErrorMessage}</strong></p>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.Container}>
         <Header>

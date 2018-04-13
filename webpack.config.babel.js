@@ -47,6 +47,10 @@ module.exports = {
         use: 'babel-loader'
       },
       {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
+      },
+      {
         // Transform our own .(less|css) files with PostCSS and CSS-modules
         test: /\.(less|css)$/,
         include: [path.resolve(__dirname, 'src/components')],

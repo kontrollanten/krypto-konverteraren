@@ -20,6 +20,7 @@ const initialSubstate = {
     currency: null,
     amount: null,
   },
+  validationErrorMessage: null,
 };
 
 export default (state = {}, action) => {
@@ -65,6 +66,14 @@ export default (state = {}, action) => {
         ...state,
         [action.filename]: {
           ...initialSubstate,
+        },
+      };
+    case SELECT_FILE_FAILURE: 
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          validationErrorMessage: action.errorMessage,
         },
       };
     case SELECT_FILE_SUCCESS:
