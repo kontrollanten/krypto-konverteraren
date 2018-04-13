@@ -1,4 +1,5 @@
 import { connect } from 'preact-redux';
+import { fetchCurrencies } from '../convert-currency';
 import FileManager from '../../components/file-manager';
 import {
   downloadParsedResults,
@@ -24,8 +25,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   onDownloadParsedResults: () => dispatch(downloadParsedResults()),
+  onFetchCurrencies: () => dispatch(fetchCurrencies()),
   onSelectFile: file => dispatch(selectFile(file)),
-  onSetStaticToCurrency: symbol => dispatch(setStaticToCurrency({ symbol })),
+  onSetStaticToCurrency: (options) => dispatch(setStaticToCurrency(options)),
   onParseConfigFinished: (filename) => dispatch(parseResults(filename)),
   onUpdateParseIndex: (options) => dispatch(updateParseIndex(options)),
 });

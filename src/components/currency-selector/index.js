@@ -1,13 +1,18 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
-export default ({
-  currencies,
-  label,
-  ...props,
-}) => (
-  <select {...props}>
-    <option value="" disabled selected>{label}</option>
-    {currencies
-      .map(currency => <option value={currency.Symbol}>{currency.FullName}</option>)}
-  </select>
-);
+export default class CurrencySelector extends Component {
+  componentDidMount() {
+    this.props.onFetchCurrencies();
+  }
+
+  render() {
+    return (
+      <select {...this.props}>
+        <option value="" disabled selected>{this.props.label}</option>
+        {this.props.currencies
+          .map(currency => <option value={currency.Symbol}>{currency.FullName}</option>)}
+      </select>
+    );
+  }
+}
+

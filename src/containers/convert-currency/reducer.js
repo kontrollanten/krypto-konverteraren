@@ -1,7 +1,4 @@
 import {
-  FETCH_CURRENCIES,
-  FETCH_CURRENCIES_FAILURE,
-  FETCH_CURRENCIES_SUCCESS,
   FETCH_RESULTS,
   FETCH_RESULTS_FAILURE,
   FETCH_RESULTS_SUCCESS,
@@ -24,11 +21,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         requestUrl: action.requestUrl,
-      };
-    case FETCH_CURRENCIES_SUCCESS:
-      return {
-        ...state,
-        currencies: [...state.currencies, ...action.currencies],
       };
     case FETCH_RESULTS_SUCCESS:
       return {

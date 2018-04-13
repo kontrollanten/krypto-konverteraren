@@ -23,9 +23,13 @@ export default class ParseFile extends Component {
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
   }
 
-  componentDidUpdate({ parseIndexes, parseKey }) {
+  componentDidUpdate({ staticToCurrency, parseIndexes, parseKey }) {
     if (parseKey !== this.props.parseKey) {
       this.updateSelectedTableIndexes(this.props.parseIndexes, this.props.parseKey);
+    }
+
+    if (staticToCurrency !== this.props.staticToCurrency) {
+      this.setWizardStep();
     }
 
     if (parseIndexes && Object.values(parseIndexes).filter(v => v !== null).length !== Object.values(this.props.parseIndexes).filter(v => v !== null).length) {
@@ -36,7 +40,7 @@ export default class ParseFile extends Component {
 
   handleClickNext() {
     this.props.onParseConfigFinished(this.props.filename);
-    const nextPath = this.props.url.split('/').filter(section => section !== 'tolka').join('/');
+    const nextPath = this.props.url.slice(0, this.props.url.indexOf('/tolka'));
     history.push(nextPath);
   }
 
@@ -62,7 +66,7 @@ export default class ParseFile extends Component {
   }
 
   handleSelectCurrency({ target }) {
-    this.props.onSetStaticToCurrency(target.value);
+    this.props.onSetStaticToCurrency({ symbol: target.value, filename: this.props.filename });
   }
 
   updateSelectedTableIndexes(parseIndexes, key) {

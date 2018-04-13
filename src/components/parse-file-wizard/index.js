@@ -8,7 +8,7 @@ import Card from 'preact-material-components/Card';
 import 'preact-material-components/Card/style.css';
 import 'preact-material-components/Button/style.css';
 
-import CurrencySelector from '../currency-selector';
+import CurrencySelector from '../../containers/currency-selector';
 import styles from './style.less';
 
 export default ({
