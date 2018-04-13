@@ -104,12 +104,12 @@ export default class ParseFile extends Component {
         <Header>
           <h1>Tolka filen {this.props.filename}</h1>
           <Button
-            disabled={this.state.progress < 1}
+            disabled={this.state.progress < 1 || !this.props.validating}
             onClick={this.handleClickNext}
             raised
             ripple
           >
-            Nästa
+            {this.props.validating ? 'Validerar' : 'Nästa'}
           </Button>
         </Header>
 
