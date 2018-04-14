@@ -160,6 +160,10 @@ export const updateParseIndex = ({ filename, key, index }) => {
       index,
     });
 
+    if (!index) {
+      return;
+    }
+
     const rows = getState().FileManager[filename].unparsedResults;
 
     switch (key) {

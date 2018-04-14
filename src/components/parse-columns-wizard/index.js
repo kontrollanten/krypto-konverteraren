@@ -7,6 +7,9 @@ import 'preact-material-components/LinearProgress/style.css';
 import Card from 'preact-material-components/Card';
 import 'preact-material-components/Card/style.css';
 import 'preact-material-components/Button/style.css';
+import Button from 'preact-material-components/Button';
+import 'preact-material-components/Button/style.css';
+import 'preact-material-components/Theme/style.css';
 
 import CurrencySelector from '../../containers/currency-selector';
 import styles from './style.less';
@@ -17,6 +20,8 @@ export default ({
   doneKeys,
   handleSelectCurrency,
   progress,
+  onClickResolve,
+  validating,
 }) => {
   const steps = [
     {
@@ -58,6 +63,16 @@ export default ({
               <Icon>{step.icon}</Icon>
             </List.ItemGraphic>
             Klicka på den kolumn som innehåller {step.desc}
+            {step.key === currentKey && (
+              <Button
+                disabled={validating}
+                onClick={onClickResolve}
+                raised
+                ripple
+              >
+                Klar
+              </Button>
+            )}
           </List.Item>
         ))}
       </List>

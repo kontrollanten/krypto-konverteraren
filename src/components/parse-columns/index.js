@@ -20,6 +20,7 @@ export default class ParseColumns extends Component {
 
     this.handleClickColumn = this.handleClickColumn.bind(this);
     this.handleClickNext = this.handleClickNext.bind(this);
+    this.handleResolveKey = this.handleResolveKey.bind(this);
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
   }
 
@@ -48,15 +49,25 @@ export default class ParseColumns extends Component {
     const index = parseInt(event.target.getAttribute('data-index'));
 
     if (this.state.selectedTableIndexes.indexOf(index) > -1) {
-      return;
+      this.props.onUpdateParseIndex({
+        index: null,
+        key: this.props.parseKey,
+        filename: this.props.filename,
+      });
+    } else {
+      this.props.onUpdateParseIndex({
+        index,
+        key: this.props.parseKey,
+        filename: this.props.filename,
+      });
     }
+  }
 
-    this.props.onUpdateParseIndex({
-      index,
-      key: this.props.parseKey,
-      filename: this.props.filename,
-    });
+  handleSelectCurrency({ target }) {
+    this.props.onSetStaticToCurrency({ symbol: target.value, filename: this.props.filename });
+  }
 
+  handleResolveKey() {
     const nextKey = Object.keys(this.props.parseIndexes)
                       .reverse()
                       .filter(key => key !== this.props.parseKey)
@@ -65,14 +76,9 @@ export default class ParseColumns extends Component {
     history.push(this.props.url.split('/').slice(0, -1).concat(nextKey).join('/'));
   }
 
-  handleSelectCurrency({ target }) {
-    this.props.onSetStaticToCurrency({ symbol: target.value, filename: this.props.filename });
-  }
-
   updateSelectedTableIndexes(parseIndexes, key) {
     this.setState({
       selectedTableIndexes: Object.keys(parseIndexes)
-      .filter(k => k !== key)
       .map(k => parseIndexes[k]),
     });
   }
@@ -119,7 +125,9 @@ export default class ParseColumns extends Component {
             currentKey={this.props.parseKey}
             doneKeys={Object.keys(this.props.parseIndexes).filter(v => this.props.parseIndexes[v] !== null)}
             handleSelectCurrency={this.handleSelectCurrency}
+            onClickResolve={this.handleResolveKey}
             progress={this.state.progress}
+            validating={this.props.validating}
           />}
         </div>
         {this.props.unparsedResults && <TransactionTable
