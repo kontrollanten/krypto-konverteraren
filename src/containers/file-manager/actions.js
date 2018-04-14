@@ -126,18 +126,22 @@ export const selectFile = file => {
       filename: file.name,
     });
 
-    Papa.parse(file, {
-      complete: results => {
-        const rows = results.data;
+    return new Promise(resolve => {
+      Papa.parse(file, {
+        complete: results => {
+          const rows = results.data;
 
-        dispatch(validateColumnCount(file.name, rows));
+          dispatch({
+            type: SELECT_FILE_SUCCESS,
+            filename: file.name,
+            results: rows,
+          });
+   
+          dispatch(validateColumnCount(file.name, rows));
 
-        dispatch({
-          type: SELECT_FILE_SUCCESS,
-          filename: file.name,
-          results: rows,
-        });
-      },
+          resolve();
+        },
+      });
     });
   };
 };

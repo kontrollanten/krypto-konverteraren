@@ -3,6 +3,7 @@ import { Router } from 'preact-router';
 
 import DropHandler from '../drop-handler';
 import ParseColumns from '../parse-columns';
+import ParseRows from '../../containers/parse-rows';
 import ShowParsedFile from '../show-parsed-file';
 import styles from './style.less';
 
@@ -23,6 +24,9 @@ export default class FileManager {
           unparsedResults={this.props.unparsedResults}
           validating={this.props.validating}
           validationErrorMessage={this.props.validationErrorMessage}
+        />
+        <ParseRows
+          path={`${basePath}/:filename/tolka-rader`}
         />
         <ShowParsedFile
           path={`${basePath}/:filename`}
