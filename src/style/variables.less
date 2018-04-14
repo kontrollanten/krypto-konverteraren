@@ -5,6 +5,11 @@
 @black: #000;
 @purple: #673ab7;
 
-@brand-primary: @purple;
+@brand-primary: #075FC0;
 
 @header-height: 56px;
+
+:root {
+ --mdc-theme-secondary: fade(@brand-primary, 70%);
+ --mdc-theme-primary: @brand-primary;
+}

@@ -1,4 +1,4 @@
-@purple: #673ab7;
+@import '~style/variables';
 
 .ParseTable {
   overflow: auto;
@@ -6,7 +6,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  border: 1px solid @purple;
+  border: 1px solid @brand-primary;
   border-radius: 20px;
   margin: 20px 0;
   border-spacing: 0;
@@ -17,7 +17,7 @@
     td:hover::after {
       content: "";
       position: absolute;
-      background-color: fade(@purple, 20%);
+      background-color: fade(@brand-primary, 20%);
       left: 0;
       top: -5000px;
       height: 10000px;
@@ -27,7 +27,7 @@
   }
 
   tr:nth-child(even) {
-    background-color: fade(@purple, 20%);
+    background-color: fade(@brand-primary, 20%);
   }
 
   td {
@@ -36,7 +36,7 @@
     padding: 15px 5px;
 
     &.Selected {
-      background: @purple;
+      background: @brand-primary;
       color: #fff;
 
       &:hover {

@@ -1,4 +1,4 @@
-@purple: #673ab7;
+@import '~style/variables';
 
 .Container {
   padding: 58px 20px;
@@ -20,8 +20,8 @@
   min-height: 200px;
   flex-direction: column;
   justify-content: center;
-  border: 5px dashed @purple;
-  color: @purple;
+  border: 5px dashed @brand-primary;
+  color: @brand-primary;
   border-radius: 15px;
   text-align: center;
   font-size: 1.5em;
@@ -32,7 +32,7 @@
 }
 
 .MessageBox.Active {
-  background-color: fade(@purple, 60%);
+  background-color: fade(@brand-primary, 60%);
   color: #fff;
   border-color: #fff;
 }
