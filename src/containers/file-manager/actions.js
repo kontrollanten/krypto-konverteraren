@@ -61,6 +61,7 @@ export const parseResults = (filename) => {
   return (dispatch, getState) => {
     const state = getState().FileManager[filename];
     const {
+      headerRow,
       parseIndexes,
       staticToCurrency,
       unparsedResults,
@@ -70,6 +71,7 @@ export const parseResults = (filename) => {
 
     dispatch({
       type: PARSE_RESULTS,
+      headerRow: [...headerRow, headerRow[parseIndexes.amount].concat(`(${toCurrency})`)],
       nrExpectedResults: unparsedResults.length,
       filename,
     });
@@ -82,12 +84,7 @@ export const parseResults = (filename) => {
       }))
       .forEach((row, index) => {
         if (isNaN(parseFloat(row.amount))) {
-          if (index === 0) {
-            parsedResults[index] = [...unparsedResults[index], toCurrency];
-          } else {
-            parsedResults[index] = [...unparsedResults[index], null];
-          }
-          return;
+          return parsedResults[index] = [...unparsedResults[index], null];
         }
 
         fetchHistoricalValueForCurrency({

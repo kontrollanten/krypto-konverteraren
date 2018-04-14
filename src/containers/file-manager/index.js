@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     currencies: state.ConvertCurrency.currencies,
+    headerRow: fileState.headerRow,
     nrExpectedResults: fileState.nrExpectedResults,
     parseErrorRows: fileState.parseErrorRows,
     parseIndexes: fileState.parseIndexes,

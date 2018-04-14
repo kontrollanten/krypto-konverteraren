@@ -16,6 +16,7 @@ export default class FileManager {
         <ParseColumns
           path={`${basePath}/:filename/tolka-kolumner/:parseKey?`}
           currencies={this.props.currencies}
+          headerRow={this.props.headerRow}
           onUpdateParseIndex={this.props.onUpdateParseIndex}
           onParseConfigFinished={this.props.onParseConfigFinished}
           onSetStaticToCurrency={this.props.onSetStaticToCurrency}
@@ -30,6 +31,7 @@ export default class FileManager {
         />
         <ShowParsedFile
           path={`${basePath}/:filename`}
+          headerRows={this.props.headerRow}
           nrExpectedResults={this.props.nrExpectedResults}
           onDownloadParsedResults={this.props.onDownloadParsedResults}
           parseErrorRows={this.props.parseErrorRows}

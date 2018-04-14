@@ -1,3 +1,4 @@
+import { VERIFY_SUSPECTED_HEADER } from '../parse-rows/types';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -11,6 +12,7 @@ import {
 
 const initialSubstate = {
   nrExpectedResults: 0,
+  headerRow: [],
   staticToCurrency: null,
   unparsedResults: [],
   parsedResults: [],
@@ -30,6 +32,7 @@ export default (state = {}, action) => {
         ...state,
         [action.filename]: {
           ...state[action.filename],
+          headerRow: [...action.headerRow],
           nrExpectedResults: action.nrExpectedResults,
         },
       };
@@ -93,6 +96,15 @@ export default (state = {}, action) => {
             ...state[action.filename].parseIndexes,
             [action.key]: action.index,
           },
+        },
+      };
+    case VERIFY_SUSPECTED_HEADER:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          headerRow: state[action.filename].unparsedResults.slice(0, 1).pop(),
+          unparsedResults: state[action.filename].unparsedResults.slice(1),
         },
       };
   }

@@ -49,6 +49,7 @@ export default class ShowParsedFile extends Component {
         )}
 
         <TransactionTable
+          headerRows={[this.props.headerRows]}
           rows={this.props.parsedResults}
         />
       </div>

@@ -1,4 +1,7 @@
-import { SELECT_FILE } from '../file-manager/types';
+import {
+  SELECT_FILE,
+  SELECT_FILE_SUCCESS,
+} from '../file-manager/types';
 import {
   EMPTY_ROWS_ANALYZE,
   EMPTY_ROWS_ANALYZE_FAILURE,
@@ -9,6 +12,7 @@ const initialSubState = {
   emptyRowSuspects: [],
   errorMessage: null,
   loading: false,
+  suspectedHeader: null,
 };
 
 export default (state = {}, action) => {
@@ -18,6 +22,14 @@ export default (state = {}, action) => {
         ...state,
         [action.filename]: {
           ...initialSubState,
+        },
+      };
+    case SELECT_FILE_SUCCESS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          suspectedHeader: action.results.slice(0, 1),
         },
       };
     case EMPTY_ROWS_ANALYZE:

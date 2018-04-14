@@ -3,6 +3,7 @@ import {
   EMPTY_ROWS_ANALYZE,
   EMPTY_ROWS_ANALYZE_FAILURE,
   EMPTY_ROWS_ANALYZE_SUCCESS,
+  VERIFY_SUSPECTED_HEADER,
 } from './types';
 
 export const analyzeEmptyRows = (filename) => {
@@ -36,3 +37,11 @@ export const analyzeEmptyRows = (filename) => {
     });
   };
 };
+
+export const verifySuspectedHeader = filename => {
+  return {
+    type: VERIFY_SUSPECTED_HEADER,
+    filename,
+  };
+};
+

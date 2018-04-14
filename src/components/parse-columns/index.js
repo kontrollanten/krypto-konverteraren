@@ -104,7 +104,7 @@ export default class ParseColumns extends Component {
         <Header>
           <h1>Tolka filen {this.props.filename}</h1>
           <Button
-            disabled={this.state.progress < 1 || !this.props.validating}
+            disabled={this.state.progress < 1 || this.props.validating}
             onClick={this.handleClickNext}
             raised
             ripple
@@ -123,6 +123,7 @@ export default class ParseColumns extends Component {
           />}
         </div>
         {this.props.unparsedResults && <TransactionTable
+          headerRows={[this.props.headerRow]}
           rows={this.props.unparsedResults.slice(0, 10)}
           onClick={this.handleClickColumn}
           selectedFields={this.state.selectedTableIndexes}

@@ -3,11 +3,16 @@ import { h } from 'preact';
 import styles from './style.less';
 
 export default ({
+  headerRows = [],
   rows,
   selectedFields,
   onClick,
 }) => (
   <table className={[styles.ParseTable].concat(onClick && styles.Clickable).join(' ')}>
+    {headerRows
+      .map(row => (
+        <tr>{row.map(col => <th>{col}</th>)}</tr>
+      ))}
     {rows
       .map((row, i) => (
         <tr key={i}>

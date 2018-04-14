@@ -1,5 +1,5 @@
 import { connect } from 'preact-redux';
-import { analyzeEmptyRows } from './actions';
+import { analyzeEmptyRows, verifySuspectedHeader } from './actions';
 import ParseRows from '../../components/parse-rows';
 
 const mapStateToProps = (state, ownProps) => {
@@ -8,12 +8,14 @@ const mapStateToProps = (state, ownProps) => {
     emptyRowSuspects: parseRowsState.emptyRowSuspects || [],
     errorMessage: parseRowsState.errorMessage,
     loading: parseRowsState.loading,
+    suspectedHeader: parseRowsState.suspectedHeader,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onAnalyzeEmptyRows: filename => dispatch(analyzeEmptyRows(filename)),
+    onVerifyHeader: filename => dispatch(verifySuspectedHeader(filename)),
   };
 };
 
