@@ -37,6 +37,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
+      },
+      {
         test: /\.jsx?$/,
         exclude: path.resolve(__dirname, 'src'),
         enforce: 'pre',
@@ -45,10 +49,6 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: 'babel-loader'
-      },
-      {
-        test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' }
       },
       {
         // Transform our own .(less|css) files with PostCSS and CSS-modules
