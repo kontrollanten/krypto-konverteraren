@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onDownloadParsedResults: () => dispatch(downloadParsedResults()),
+  onDownloadParsedResults: filename => dispatch(downloadParsedResults(filename)),
   onFetchCurrencies: () => dispatch(fetchCurrencies()),
   onSelectFile: file => dispatch(selectFile(file)),
 });

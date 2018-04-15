@@ -35,22 +35,26 @@ export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date
     });
 };
 
-export const downloadParsedResults = () => {
+const arrayToCsvRow = arr =>
+  arr
+    .map(row => row.join(','))
+    .join('\r\n');
+
+
+export const downloadParsedResults = filename => {
   return (dispatch, getState) => {
-    const { parsedResults } = getState().FileManager;
+    const { headerRow, parsedResults } = getState().FileManager[filename];
 
     const fileContent = 'data:text/csv;charset=utf-8,'
       .concat(
-        parsedResults
-          .map(row => row.join(','))
-          .join('\r\n')
+        arrayToCsvRow([headerRow, ...parsedResults]),
       );
 
     const encodedFile = encodeURI(fileContent);
 
     const link = document.createElement('a');
     link.setAttribute('href', encodedFile);
-    link.setAttribute('download', 'converted-file.csv');
+    link.setAttribute('download', `${filename}-SEK.csv`);
 
     document.body.appendChild(link);
     link.click();

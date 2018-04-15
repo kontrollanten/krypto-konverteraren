@@ -13,7 +13,7 @@ import styles from './style.less';
 
 export default class ShowParsedFile extends Component {
   handleDownload() {
-    this.props.onDownloadParsedResults();
+    this.props.onDownloadParsedResults(this.props.filename);
   }
 
   render() {
