@@ -13,7 +13,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: darken(@brand-primary, 10%);
+  background-color: darken(@brand-primary, 20%);
   margin: 0 -20px;
   height: 300px;
   color: #fff;
@@ -26,6 +26,15 @@
   :global(.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input::placeholder),
   :global(.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input),
   :global(.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label) {
+    color: #fff;
+  }
+
+  button {
+    margin: 0 auto;
+  }
+
+  button a {
+    text-decoration: none;
     color: #fff;
   }
 }

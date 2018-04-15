@@ -12,8 +12,7 @@ export default class Header extends Component {
           <img src={logo} height="28" />
         </Link></h1>
         <nav>
-          <Link href="/">Konvertera valutor</Link>
-          <Link href="/las-av-fil">Ladda upp fil</Link>
+          <Link href="/las-av-fil">Konvertera fil</Link>
         </nav>
 			</header>
 		);

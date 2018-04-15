@@ -1,6 +1,9 @@
 import { h } from 'preact';
 import List from 'preact-material-components/List';
 import 'preact-material-components/List/style.css';
+import Button from 'preact-material-components/Button';
+import 'preact-material-components/Button/style.css';
+import 'preact-material-components/Theme/style.css';
 import ContentWrapper from '../content-wrapper';
 import SubscribeToNewsletter from '../subscribe-to-newsletter';
 import styles from './style.less';
@@ -11,8 +14,13 @@ export default () => (
       <div>
         <h1>Har du handlat med kryptovalutor?</h1>
         <h2>Förenkla din inkomstdeklaration med ett par klick!</h2>
-        <p>Anmäl dig till vårat nyhetsbrev för att bli meddelad när vi lanserar.</p>
-        <SubscribeToNewsletter />
+        <div style={{ textAlign: 'center' }}>
+          <Button raised >
+            <a href="/las-av-fil">
+              Börja nu
+            </a>
+          </Button>
+        </div>
       </div>
     </div>
     <div className={styles.Presentation}>
@@ -30,10 +38,6 @@ export default () => (
           <li>K4 Krypto adderar en kolumn med SEK-värdet i respektive fil.</li>
           <li>Ladda ner de nya filerna.</li>
         </ol>
-      </div>
-      <div className={styles.When}>
-        <h2>När?</h2>
-        <p>Snart. I dagsläget har vi en fungerande proof-of-concept, planen är att lansera en första version senast den 15:e april. Skriv upp dig på vårt nyhetsbrev så återkommer vi med uppdateringar.</p>
       </div>
     </div> 
   </ContentWrapper>

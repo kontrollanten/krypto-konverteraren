@@ -28,6 +28,7 @@ export default class ShowParsedFile extends Component {
         <Header>
           <h1>Resultat för {this.props.filename}</h1>
           <Button
+            disabled={isLoading}
             onClick={this.handleDownload.bind(this)}
             raised
             ripple
