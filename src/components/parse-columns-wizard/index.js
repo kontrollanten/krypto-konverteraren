@@ -44,8 +44,8 @@ export default ({
     .map(step => ({
       ...step,
       className: [].concat(
-        doneKeys.indexOf(step.key) > -1 && currentKey !== step.key ? styles.Done : '',
-        doneKeys.indexOf(step.key) === -1 && currentKey !== step.key ? styles.ToBeDone : '',
+        (step.nr / 3) <= progress && currentKey !== step.key ? styles.Done : '',
+        (step.nr / 3) > progress && currentKey !== step.key ? styles.ToBeDone : '',
         currentKey === step.key ? styles.Current : ''
       ).join(' '),
     }));

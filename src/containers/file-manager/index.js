@@ -4,9 +4,6 @@ import FileManager from '../../components/file-manager';
 import {
   downloadParsedResults,
   selectFile,
-  setStaticToCurrency,
-  parseResults,
-  updateParseIndex,
 } from './actions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,16 +11,10 @@ const mapStateToProps = (state, ownProps) => {
   const validationState = state.FileValidator[ownProps.filename] || {};
 
   return {
-    currencies: state.ConvertCurrency.currencies,
     headerRow: fileState.headerRow,
     nrExpectedResults: fileState.nrExpectedResults,
     parseErrorRows: fileState.parseErrorRows,
-    parseIndexes: fileState.parseIndexes,
     parsedResults: fileState.parsedResults,
-    staticToCurrency: fileState.staticToCurrency,
-    unparsedResults: fileState.unparsedResults,
-    validating: validationState.validating,
-    validationErrorMessage: validationState.errorMessage,
   };
 };
 
@@ -31,9 +22,6 @@ const mapDispatchToProps = dispatch => ({
   onDownloadParsedResults: () => dispatch(downloadParsedResults()),
   onFetchCurrencies: () => dispatch(fetchCurrencies()),
   onSelectFile: file => dispatch(selectFile(file)),
-  onSetStaticToCurrency: (options) => dispatch(setStaticToCurrency(options)),
-  onParseConfigFinished: (filename) => dispatch(parseResults(filename)),
-  onUpdateParseIndex: (options) => dispatch(updateParseIndex(options)),
 });
 
 export default connect(

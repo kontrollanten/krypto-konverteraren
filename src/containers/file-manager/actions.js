@@ -9,7 +9,9 @@ import {
   SELECT_FILE,
   SELECT_FILE_FAILURE,
   SELECT_FILE_SUCCESS,
-  UPDATE_PARSE_INDEXES,
+  UPDATE_AMOUNT_INDEXES,
+  UPDATE_CURRENCY_INDEX,
+  UPDATE_DATE_INDEX,
 } from './types';
 
 export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => {
@@ -59,58 +61,65 @@ export const downloadParsedResults = () => {
 
 export const parseResults = (filename) => {
   return (dispatch, getState) => {
-    const state = getState().FileManager[filename];
-    const {
-      headerRow,
-      parseIndexes,
-      staticToCurrency,
-      unparsedResults,
-    } = state;
+    const { amountIndexes, unparsedResults } = getState().FileManager[filename];
     const toCurrency = 'SEK';
-    const parsedResults = [];
+    const parsedResults = [...unparsedResults];
 
-    dispatch({
-      type: PARSE_RESULTS,
-      headerRow: [...headerRow, headerRow[parseIndexes.amount].concat(`(${toCurrency})`)],
-      nrExpectedResults: unparsedResults.length,
-      filename,
-    });
+    // TODO: Sort?
+    amountIndexes
+      .forEach(amountIndex => {
+        const { 
+          currencyIndex,
+          dateIndex,
+          headerRow,
+          staticToCurrency,
+        } = getState().FileManager[filename];
+        const indexToAppend = headerRow.length;
 
-    unparsedResults
-      .map(row => ({
-        fromCurrency: row[parseIndexes.currency],
-        amount: row[parseIndexes.amount],
-        date: row[parseIndexes.date],
-      }))
-      .forEach((row, index) => {
-        if (isNaN(parseFloat(row.amount))) {
-          return parsedResults[index] = [...unparsedResults[index], null];
-        }
+        dispatch({
+          type: PARSE_RESULTS,
+          headerRow: [...headerRow, headerRow[amountIndex].concat(`(${toCurrency})`)],
+          nrExpectedResults: unparsedResults.length,
+          filename,
+        });
 
-        fetchHistoricalValueForCurrency({
-          fromCurrency: staticToCurrency || row.fromCurrency,
-          date: row.date,
-          toCurrency,
-        })
-          .then(({ middlePrice }) => {
-            if (isNaN(middlePrice)) {
-              throw Error();
+        unparsedResults
+          .map(row => ({
+            fromCurrency: row[currencyIndex],
+            amount: row[amountIndex],
+            date: row[dateIndex],
+          }))
+          .forEach((row, index) => {
+            if (isNaN(parseFloat(row.amount))) {
+              parsedResults[index][indexToAppend] = null;
+              return;
             }
-            parsedResults[index] = [...unparsedResults[index], middlePrice * row.amount];
 
-            dispatch({
-              type: PARSE_RESULTS_SUCCESS,
-              filename,
-              parsedResults,
-            });
-          })
-          .catch(error => {
-            parsedResults[index] = null;
-            dispatch({
-              type: PARSE_RESULTS_FAILURE,
-              filename,
-              row: index + 1,
-            });
+            fetchHistoricalValueForCurrency({
+              fromCurrency: staticToCurrency || row.fromCurrency,
+              date: row.date,
+              toCurrency,
+            })
+              .then(({ middlePrice }) => {
+                if (isNaN(middlePrice)) {
+                  throw Error();
+                }
+                parsedResults[index][indexToAppend] = middlePrice * row.amount;
+
+                dispatch({
+                  type: PARSE_RESULTS_SUCCESS,
+                  filename,
+                  parsedResults: [...parsedResults],
+                });
+              })
+              .catch(error => {
+                parsedResults[index] = null;
+                dispatch({
+                  type: PARSE_RESULTS_FAILURE,
+                  filename,
+                  row: index + 1,
+                });
+              });
           });
       });
   };
@@ -153,12 +162,29 @@ export const setStaticToCurrency = ({ symbol, filename }) => {
 
 export const updateParseIndex = ({ filename, key, index }) => {
   return (dispatch, getState) => {
-    dispatch({
-      type: UPDATE_PARSE_INDEXES,
-      filename,
-      key,
-      index,
-    });
+    switch (key) {
+      case 'amount':
+        dispatch({
+          type: UPDATE_AMOUNT_INDEXES,
+          filename,
+          index,
+        });
+        break;
+      case 'currency':
+        dispatch({
+          type: UPDATE_CURRENCY_INDEX,
+          filename,
+          index,
+        });
+        break;
+      case 'date':
+        dispatch({
+          type: UPDATE_DATE_INDEX,
+          filename,
+          index,
+        });
+        break;
+    };
 
     if (!index) {
       return;

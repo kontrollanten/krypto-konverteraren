@@ -24,18 +24,22 @@ export default class ParseColumns extends Component {
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
   }
 
-  componentDidUpdate({ staticToCurrency, parseIndexes, parseKey }) {
+  componentDidUpdate({ amountIndexes, currencyIndex, dateIndex, staticToCurrency, parseKey }) {
     if (parseKey !== this.props.parseKey) {
-      this.updateSelectedTableIndexes(this.props.parseIndexes, this.props.parseKey);
+      this.updateSelectedTableIndexes();
     }
 
     if (staticToCurrency !== this.props.staticToCurrency) {
       this.setWizardStep();
     }
 
-    if (parseIndexes && Object.values(parseIndexes).filter(v => v !== null).length !== Object.values(this.props.parseIndexes).filter(v => v !== null).length) {
-      this.updateSelectedTableIndexes(this.props.parseIndexes, this.props.parseKey);
-      this.setWizardStep();
+    switch (true) {
+      case amountIndexes !== this.props.amountIndexes:
+      case currencyIndex !== this.props.currencyIndex:
+      case dateIndex !== this.props.dateIndex:
+        this.updateSelectedTableIndexes();
+        this.setWizardStep();
+        break;
     }
   }
 
@@ -68,27 +72,39 @@ export default class ParseColumns extends Component {
   }
 
   handleResolveKey() {
-    const nextKey = Object.keys(this.props.parseIndexes)
-                      .reverse()
-                      .filter(key => key !== this.props.parseKey)
-                      .find(key => this.props.parseIndexes[key] === null);
+    let nextKey;
+
+    switch (true) {
+      case this.props.amountIndexes.length === 0:
+        nextKey = 'amount';
+        break;
+      case this.props.currencyIndex === null:
+        nextKey = 'currency';
+        break;
+      case this.props.dateIndex === null:
+        nextKey = 'date';
+    }
 
     history.push(this.props.url.split('/').slice(0, -1).concat(nextKey).join('/'));
   }
 
-  updateSelectedTableIndexes(parseIndexes, key) {
+  updateSelectedTableIndexes() {
+    const indexes = [...this.props.amountIndexes, this.props.currencyIndex, this.props.dateIndex];
+
     this.setState({
-      selectedTableIndexes: Object.keys(parseIndexes)
-      .map(k => parseIndexes[k]),
+      selectedTableIndexes: indexes,
     });
   }
 
   setWizardStep() {
+    const progress = ((this.props.dateIndex !== null)
+      + (this.props.currencyIndex !== null)
+      + (this.props.amountIndexes.length > 0)
+      + (this.props.staticToCurrency !== null))
+      / 3;
+
     this.setState({
-      progress: (Object.values(this.props.parseIndexes)
-        .filter(v => v !== null)
-        .length
-        + (this.props.staticToCurrency ? 1 : 0)) / 3,
+      progress
     });
   }
 
@@ -120,7 +136,7 @@ export default class ParseColumns extends Component {
         </Header>
 
         <div className={styles.description}>
-          {this.props.parseIndexes && <Wizard
+          <Wizard
             currencies={this.props.currencies}
             currentKey={this.props.parseKey}
             doneKeys={Object.keys(this.props.parseIndexes).filter(v => this.props.parseIndexes[v] !== null)}
@@ -128,7 +144,7 @@ export default class ParseColumns extends Component {
             onClickResolve={this.handleResolveKey}
             progress={this.state.progress}
             validating={this.props.validating}
-          />}
+          />
         </div>
         {this.props.unparsedResults && <TransactionTable
           headerRows={[this.props.headerRow]}
