@@ -26,24 +26,24 @@ export default ({
   const steps = [
     {
       icon: 'date_range',
-      desc: 'datum',
+      desc: 'Klicka på den kolumn som innehåller datum',
       key: 'date',
     },
     {
       icon: 'monetization_on',
-      desc: 'belopp',
+      desc: 'Klicka på de kolumner som innehåller belopp',
       key: 'amount',
     },
     {
       icon: 'attach_money',
-      desc: 'valuta',
+      desc: 'Klicka på den kolumn som innehåller valuta',
       key: 'currency',
     },
   ]
     .map((step, index) => ({ ...step, nr: index + 1 }))
     .map(step => ({
       ...step,
-      className: [].concat(
+      className: [styles.ListItem].concat(
         (step.nr / 3) <= progress && currentKey !== step.key ? styles.Done : '',
         (step.nr / 3) > progress && currentKey !== step.key ? styles.ToBeDone : '',
         currentKey === step.key ? styles.Current : ''
@@ -59,20 +59,24 @@ export default ({
           <List.Item
             className={step.className}
           >
-            <List.ItemGraphic>
-              <Icon>{step.icon}</Icon>
-            </List.ItemGraphic>
-            Klicka på den kolumn som innehåller {step.desc}
-            {step.key === currentKey && (
-              <Button
-                disabled={validating}
-                onClick={onClickResolve}
-                raised
-                ripple
-              >
-                Klar
-              </Button>
-            )}
+            <div>
+              <List.ItemGraphic>
+                <Icon>{step.icon}</Icon>
+              </List.ItemGraphic>
+              {step.desc}
+            </div>
+            <div>
+              {step.key === currentKey && (
+                <Button
+                  disabled={validating}
+                  onClick={onClickResolve}
+                  raised
+                  ripple
+                >
+                  Klar
+                </Button>
+              )}
+            </div>
           </List.Item>
         ))}
       </List>
