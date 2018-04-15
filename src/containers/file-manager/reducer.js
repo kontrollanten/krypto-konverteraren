@@ -7,7 +7,6 @@ import {
   SELECT_FILE,
   SELECT_FILE_FAILURE,
   SELECT_FILE_SUCCESS,
-  UPDATE_PARSE_INDEXES,
   UPDATE_AMOUNT_INDEXES,
   UPDATE_CURRENCY_INDEX,
   UPDATE_DATE_INDEX,
@@ -21,13 +20,8 @@ const initialSubstate = {
   headerRow: [],
   staticToCurrency: null,
   unparsedResults: [],
-  parsedResults: [],
   parseErrorRows: [],
-  parseIndexes: {
-    date: null,
-    currency: null,
-    amount: null,
-  },
+  parsedResults: [],
   validationErrorMessage: null,
 };
 
@@ -64,10 +58,7 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           staticToCurrency: action.symbol,
-          parseIndexes: {
-            ...state[action.filename].parseIndexes,
-            currency: null,
-          },
+          currencyIndex: null,
         },
       };
     case SELECT_FILE:
@@ -115,20 +106,6 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           dateIndex: action.index,
-        },
-      };
-    case UPDATE_PARSE_INDEXES:
-      const keyValue = action.key.concat('Index');
-
-      return {
-        ...state,
-        [action.filename]: {
-          ...state[action.filename],
-          [keyValue]: action.index,
-          parseIndexes: {
-            ...state[action.filename].parseIndexes,
-            [action.key]: action.index,
-          },
         },
       };
     case VERIFY_SUSPECTED_HEADER:

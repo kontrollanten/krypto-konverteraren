@@ -139,7 +139,6 @@ export default class ParseColumns extends Component {
           <Wizard
             currencies={this.props.currencies}
             currentKey={this.props.parseKey}
-            doneKeys={Object.keys(this.props.parseIndexes).filter(v => this.props.parseIndexes[v] !== null)}
             handleSelectCurrency={this.handleSelectCurrency}
             onClickResolve={this.handleResolveKey}
             progress={this.state.progress}

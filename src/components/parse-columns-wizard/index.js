@@ -17,7 +17,6 @@ import styles from './style.less';
 export default ({
   currencies,
   currentKey,
-  doneKeys,
   handleSelectCurrency,
   progress,
   onClickResolve,
