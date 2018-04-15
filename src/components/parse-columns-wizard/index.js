@@ -26,17 +26,18 @@ export default ({
   const steps = [
     {
       icon: 'date_range',
-      desc: 'Klicka på den kolumn som innehåller datum',
+      primaryText: 'Klicka på den kolumn som innehåller transaktionsdatum',
       key: 'date',
     },
     {
       icon: 'monetization_on',
-      desc: 'Klicka på de kolumner som innehåller belopp',
+      primaryText: 'Klicka på de kolumner som innehåller transaktionsbelopp',
       key: 'amount',
     },
     {
       icon: 'attach_money',
-      desc: 'Klicka på den kolumn som innehåller valuta',
+      primaryText: 'Klicka på den kolumn som innehåller valutanamn',
+      secondaryText: 'Den kolumn där varje rad innehåller namnet på valutan transaktionen utförts i.',
       key: 'currency',
     },
   ]
@@ -63,7 +64,12 @@ export default ({
               <List.ItemGraphic>
                 <Icon>{step.icon}</Icon>
               </List.ItemGraphic>
-              {step.desc}
+              <List.PrimaryText>
+                {step.primaryText}
+              </List.PrimaryText>
+              <List.SecondaryText>
+                {step.secondaryText}
+              </List.SecondaryText>
             </div>
             <div>
               {step.key === currentKey && (
