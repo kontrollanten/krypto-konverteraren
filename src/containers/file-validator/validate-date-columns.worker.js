@@ -3,7 +3,7 @@ import moment from 'moment';
 const validateDateColumns = (rows, dateIndex) => {
   const invariants = rows
     .map((row, index) => ({ date: row[dateIndex], rowNr: index + 1 }))
-    .filter(row => !!row[dateIndex])
+    .filter(row => !!row.date)
     .filter(row => {
       const valid = moment(row.date).isValid();
 

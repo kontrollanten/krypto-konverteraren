@@ -6,6 +6,8 @@ import {
   EMPTY_ROWS_ANALYZE,
   EMPTY_ROWS_ANALYZE_FAILURE,
   EMPTY_ROWS_ANALYZE_SUCCESS,
+  REMOVE_ROWS,
+  REMOVE_ROWS_SUCCESS,
 } from './types';
 
 const initialSubState = {
@@ -55,6 +57,22 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           emptyRowSuspects: action.suspects,
+          loading: false,
+        },
+      };
+    case REMOVE_ROWS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          loading: true,
+        },
+      };
+    case REMOVE_ROWS_SUCCESS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
           loading: false,
         },
       };

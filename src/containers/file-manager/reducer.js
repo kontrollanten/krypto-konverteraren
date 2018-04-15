@@ -1,4 +1,4 @@
-import { VERIFY_SUSPECTED_HEADER } from '../parse-rows/types';
+import { VERIFY_SUSPECTED_HEADER, REMOVE_ROWS_SUCCESS } from '../parse-rows/types';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -50,6 +50,14 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           parsedResults: [...action.parsedResults],
+        },
+      };
+    case REMOVE_ROWS_SUCCESS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          unparsedResults: [...action.rows],
         },
       };
     case SET_STATIC_TO_CURRENCY:
