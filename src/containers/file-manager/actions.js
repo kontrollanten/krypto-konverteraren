@@ -14,15 +14,24 @@ import {
   UPDATE_DATE_INDEX,
 } from './types';
 
+const valueConvertCache = {};
+
 export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => {
+  const cacheKey = fromCurrency.concat(toCurrency, date);
+  const cache = valueConvertCache[cacheKey];
+
+  if (cache) {
+    return cache;
+  }
+
   const toTs = moment(date).unix();
   // CryptoCompare responds with the last two hours prices so we add one hour to our req
   const fromTs = moment(date).subtract(1, 'hour').unix();
 
-  return fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=SEK&toTs=1511452563&extraParams=krypto-konverteraren&limit=1`)
+  const value = fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=SEK&toTs=1511452563&extraParams=krypto-konverteraren&limit=1`)
     .then(response => response.json())
     .then(jsonResponse => {
-      return jsonResponse.Data
+      const value = jsonResponse.Data
         .map(data => {
           return {
             ...data,
@@ -32,7 +41,13 @@ export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date
         .reduce((prev, curr) => {
           return (Math.abs(curr.time - toTs) < Math.abs(prev.time - toTs) ? curr : prev);
         }, { time: 0 });
+
+      return value;
     });
+
+  valueConvertCache[cacheKey] = value;
+
+  return value;
 };
 
 const arrayToCsvRow = arr =>
@@ -82,7 +97,7 @@ export const parseResults = (filename) => {
 
         dispatch({
           type: PARSE_RESULTS,
-          headerRow: [...headerRow, headerRow[amountIndex].concat(`(${toCurrency})`)],
+          headerRow: [...headerRow, headerRow[amountIndex].concat(` (${toCurrency})`)],
           nrExpectedResults: unparsedResults.length,
           filename,
         });
