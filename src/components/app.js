@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import Helmet from 'preact-helmet';
+import UAParser from 'ua-parser-js';
 
 import history from '../history';
 import Header from './header';
@@ -8,6 +9,9 @@ import Home from './home';
 import ConvertCurrency from '../containers/convert-currency';
 import Profile from './profile';
 import FileManager from '../containers/file-manager';
+import BrowserChecker from './browser-checker';
+
+const { browser } = UAParser();
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
@@ -31,11 +35,15 @@ export default class App extends Component {
             }
           ]}
         />
+
 				<Header />
 				<Router onChange={this.handleRoute} history={history}>
 					<Home path="/" />
           <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
 				</Router>
+        {browser.name.toLowerCase() !== 'chrome' && (
+          <BrowserChecker />
+        )}
 			</div>
 		);
 	}
