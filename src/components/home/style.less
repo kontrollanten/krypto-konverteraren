@@ -16,10 +16,14 @@
   align-items: center;
   width: 100%;
   background-color: darken(@brand-primary, 20%);
-  margin: 0 -20px;
-  height: 300px;
+  min-height: 300px;
   color: #fff;
   text-shadow: 1px 1px 1px #000;
+  padding: 0 20px;
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    font-size: 70%;
+  }
 
   :global(.mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea)) {
     border-color: #fff;
@@ -43,10 +47,13 @@
 
 .Presentation {
   max-width: 1000px;
-  display: grid;
-  grid-template-areas: "a a a a a a"
-  "c c c c c c";
-  grid-template-columns: repeat(6, 1fr);
+
+  @media (min-width: 480px) {
+    display: grid;
+    grid-template-areas: "a a a a a a"
+    "c c c c c c";
+    grid-template-columns: repeat(6, 1fr);
+  }
 
   > div {
     padding: 20px;

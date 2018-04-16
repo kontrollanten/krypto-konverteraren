@@ -20,6 +20,15 @@
 		line-height: 62px;
 		font-weight: 400;
 		color: #FFF;
+
+    @media (min-width: 320px) and (max-width: 480px) {
+      line-height: 55px;
+
+      img {
+        width: 90px;
+        height: auto;
+      }
+    }
 	}
 
   a {
@@ -31,6 +40,7 @@
 	nav {
 		float: right;
 		font-size: 100%;
+
 
 		a {
 			display: inline-block;
@@ -45,6 +55,15 @@
 			&:hover, &:active {
 				background: rgba(255,255,255,0.3);
 			}
+
+      @media (min-width: 320px) and (max-width: 480px) {
+        padding: 0 7px;
+        font-size: 90%;
+
+        &:first-child {
+          display: none;
+        }
+      }
 		}
 	}
 }
