@@ -18,13 +18,13 @@ import BrowserChecker from './browser-checker';
 const { browser } = UAParser();
 
 export default class App extends Component {
-	handleRoute = e => {
+  handleRoute = e => {
     window.scrollTo(0, 0);
-	};
+  };
 
-	render() {
-		return (
-			<div>
+  render() {
+    return (
+      <div>
         <Helmet
           title="Få hjälp med inkomstdeklaration av krypto-handel"
           titleTemplate="%s - K4 Krypto"
@@ -36,20 +36,20 @@ export default class App extends Component {
           ]}
         />
 
-				<Header />
-				<Router onChange={this.handleRoute} history={history}>
-					<Home path="/" />
+        <Header />
+        <Router onChange={this.handleRoute} history={history}>
+          <Home path="/" />
           <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
           <AboutK4K path="/om-tjansten" />
           <AboutUs path="/om-k4-krypto" />
           <FAQ path="/fragor-och-svar" />
           <DisclaimerPage path="/ansvar-och-villkor" />
-				</Router>
+        </Router>
         {browser.name.toLowerCase() !== 'chrome' && (
           <BrowserChecker />
         )}
         <Footer />
-			</div>
-		);
-	}
+      </div>
+    );
+  }
 }
