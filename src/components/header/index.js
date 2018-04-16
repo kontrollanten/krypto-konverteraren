@@ -14,6 +14,7 @@ export default class Header extends Component {
         <nav>
           <Link href="/las-av-fil">Konvertera fil</Link>
           <Link href="/ansvar-och-villkor">Ansvar och villkor</Link>
+          <Link href="/fragor-och-svar">Frågor och svar</Link>
         </nav>
 			</header>
 		);

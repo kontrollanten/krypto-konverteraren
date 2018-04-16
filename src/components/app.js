@@ -5,6 +5,7 @@ import UAParser from 'ua-parser-js';
 
 import history from '../history';
 import DisclaimerPage from './disclaimer-page';
+import FAQ from './faq';
 import Header from './header';
 import Home from './home';
 import ConvertCurrency from '../containers/convert-currency';
@@ -41,6 +42,7 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute} history={history}>
 					<Home path="/" />
           <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
+          <FAQ path="/fragor-och-svar" />
           <DisclaimerPage path="/ansvar-och-villkor" />
 				</Router>
         {browser.name.toLowerCase() !== 'chrome' && (
