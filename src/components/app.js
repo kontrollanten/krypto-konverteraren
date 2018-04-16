@@ -4,6 +4,7 @@ import Helmet from 'preact-helmet';
 import UAParser from 'ua-parser-js';
 
 import history from '../history';
+import AboutK4K from './about-k4k';
 import DisclaimerPage from './disclaimer-page';
 import FAQ from './faq';
 import Header from './header';
@@ -42,6 +43,7 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute} history={history}>
 					<Home path="/" />
           <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
+          <AboutK4K path="/om-tjansten" />
           <FAQ path="/fragor-och-svar" />
           <DisclaimerPage path="/ansvar-och-villkor" />
 				</Router>
