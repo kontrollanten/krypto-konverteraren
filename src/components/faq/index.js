@@ -31,7 +31,7 @@ export default () => (
     <p>Vi började med att utveckla tjänsten för oss själva för att vi ville se om det gick att effektivisera den här proceduren på ett smidigt sätt. När det fungerade såg vi ingen anledning att inte dela med oss av detta smidiga verktyg till andra som sitter i samma sits. Eftersom vi haft bråttom att bygga tjänsten och inte hunnit stresstesta den som vi skulle önska kan vi inte lämna några garantier. Därför vill vi heller inte ta betalt.</p>
 
     <h2>Hur kan jag stötta projektet?</h2>
-    <p>Förhoppningen är att vi ska kunna fortsätta optimera och utveckla tjänsten och vi är väldigt tacksamma för bidrag. Detta kan göras via Swish till 0738 900 157. Vill du hjälpa till på annat sätt kan du kontakta oss på <a href="mailto:info@k4krypto.se">info@k4krypto.se</a></p>
+    <p>Förhoppningen är att vi ska kunna fortsätta optimera och utveckla tjänsten och vi är väldigt tacksamma för bidrag. Detta kan göras via Swish till 0738 900 157. Vill du hjälpa till på annat sätt kan du kontakta oss på <a href="mailto:info@k4krypto.se">info@k4krypto.se</a>.</p>
 
     <h2>Vilka garantier finns?</h2>
     <p>Inga. K4 Krypto är gratis just för att vi inte kan garantera att den fungerar ultimat tillsammans med samtliga växlingssiter och för alla situationer. Vad gäller skatteverkets krav har vi utgått från den information vi fått från Skatteverkets rådgivare, offentligt tryck och så som vi tolkat dessa kriterier. Varje individ ansvarar dock själv för att vara korrekt informerad och handla utefter de krav som ställs på just dennes specifika situation. Vi lämnar inte heller några garantier för beloppen som genereras.</p>
@@ -40,12 +40,12 @@ export default () => (
     <p>Vi spar inga uppgifter från våra användare. Eftersom du inte laddar upp någon information, utan endast konverterar datan lokalt går den inte via någon tredjepartsserver och vi sparar därför inga uppgifter du laddar upp.</p>
 
     <h2>Vart kan jag läsa mer om deklaration av kryptovalutor?</h2>
-    <p>Vi tar inget ansvar för din deklaration och rekommenderar starkt att du läser på om hur, varför du ska deklarera samt vilka krav som ställs på dig som är skatteskyldig i Sverige. Här finns goda utgångspunkter för att lära dig mer om ämnet:</p>
+    <p>Vi tar inget ansvar för din deklaration och rekommenderar starkt att du läser på om hur och varför du ska deklarera samt vilka krav som ställs på dig som är skatteskyldig i Sverige. Här finns goda utgångspunkter för att lära dig mer om ämnet:</p>
     <ul>
-      <li><a href="http://www.diva-portal.org/smash/get/diva2:898921/FULLTEXT01.pdf" target="_blank">Masteruppsats från Juridiska institutionen vid Uppsala gällande skatterätt och Bitcoin.</a></li>
+      <li><a href="https://www.skatteverket.se/privat/skatter/vardepapper/andratillgangar/kryptovalutor.4.15532c7b1442f256bae11b60.html" target="_blank">Skatteverket om kryptovalutor</a></li>
+      <li><a href="http://www.diva-portal.org/smash/get/diva2:898921/FULLTEXT01.pdf" target="_blank">Masteruppsats från Juridiska institutionen vid Uppsala gällande skatterätt och Bitcoin</a></li>
       <li><a href="http://www.dagensjuridik.se/2017/12/vardeokningen-pa-kryptovalutor-kan-fa-stora-konsekvenser-skatterattsligt" target="_blank">Debattartikel om skatterätt gällande kryptovalutor i Dagens juridik</a></li>
       <li><a href="https://cornucopia.cornubot.se/2018/03/problem-deklarera-affarer-i-bitcoin.html" target="_blank">Conocopia, en blogg som tar upp deklaration av kryptovalutor</a></li>
-      <li><a href="https://www.skatteverket.se/privat/skatter/vardepapper/andratillgangar/kryptovalutor.4.15532c7b1442f256bae11b60.html" target="_blank">Skatteverket om kryptovalutor</a></li>
     </ul>
 
     <h2>Och en sista påminnelse...</h2>
