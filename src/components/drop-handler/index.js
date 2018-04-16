@@ -115,7 +115,7 @@ export default class DropHandler extends Component {
         </div>
 
         <div className={styles.Confirmation}>
-          <p>K4 Krypto tar inget ansvar för uppgifterna som genereras i detta verktyg. Detta ska ses som hjälp för att underlätta deklareringen men inte som ett heltäckande eller en giltig referens. Användaren är själv ansvarig för de uppgifter som lämnas till Skatteverket samt på vilket sätt användaren är skyldig att lämna sin deklaration. <a href="/ansvar-och-villkor">Läs mer under ansvar och villkor</a></p>
+          <p>K4 Krypto tar inget ansvar för uppgifterna som genereras i detta verktyg. Detta ska ses som hjälp för att underlätta deklareringen men inte som ett heltäckande eller en giltig referens. Användaren är själv ansvarig för de uppgifter som lämnas till Skatteverket samt på vilket sätt användaren är skyldig att lämna sin deklaration. <a href="/ansvar-och-villkor">Läs mer under ansvar och villkor.</a></p>
           <div>
             <Button
               disabled={this.state.hasVerified}
