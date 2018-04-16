@@ -9,7 +9,7 @@ import SubscribeToNewsletter from '../subscribe-to-newsletter';
 import styles from './style.less';
 
 export default () => (
-  <ContentWrapper className={styles.Container}>
+  <div className={styles.Container}>
     <div className={styles.Header}>
       <div>
         <h1>Fast med deklarationen för dina kryptovalutor?</h1>
@@ -48,6 +48,6 @@ export default () => (
         <p>Detta innebär för många att de behöver räkna om belopp för hundratals transaktioner.</p>
       </div>
     </div> 
-  </ContentWrapper>
+  </div>
 );
 

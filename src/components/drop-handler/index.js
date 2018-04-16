@@ -3,6 +3,7 @@ import Button from 'preact-material-components/Button';
 import 'preact-material-components/Button/style.css';
 import 'preact-material-components/Theme/style.css';
 import history from '../../history'; 
+import ContentWrapper from '../content-wrapper';
 import styles from './style.less';
 
 export default class DropHandler extends Component {
@@ -93,7 +94,7 @@ export default class DropHandler extends Component {
 
   render() {
     return (
-      <div
+      <ContentWrapper
         className={styles.Container}
         ondragenter={this.handleDragEnter}
         ondragover={this.handleDragOver}
@@ -126,7 +127,7 @@ export default class DropHandler extends Component {
             </Button>
           </div>
         </div>
-      </div>
+      </ContentWrapper>
     );
   }
 }
