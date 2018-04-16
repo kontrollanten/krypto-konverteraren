@@ -8,12 +8,20 @@ import List from 'preact-material-components/List';
 import 'preact-material-components/List/style.css';
 import TransactionTable from '../transaction-table';
 import Header  from '../file-manager-header';
+import ThanksForUsing from '../thanks-for-using';
 
 import styles from './style.less';
 
 export default class ShowParsedFile extends Component {
+  state = {
+    showThanksDialog: false,
+  };
+
   handleDownload() {
     this.props.onDownloadParsedResults(this.props.filename);
+    this.setState({
+      showThanksDialog: true,
+    });
   }
 
   render() {
@@ -25,6 +33,7 @@ export default class ShowParsedFile extends Component {
 
     return (
       <div className={styles.Container}>
+        {this.state.showThanksDialog && <ThanksForUsing />}
         <Header>
           <h1>Resultat för {this.props.filename}</h1>
           <Button
