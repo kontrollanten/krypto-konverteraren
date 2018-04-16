@@ -1,5 +1,6 @@
 import Papa from 'papaparse';
 import moment from 'moment';
+import throat from 'throat';
 import { validateAmountColumns, validateColumnCount, validateDateColumns } from '../file-validator/actions';
 import {
   PARSE_RESULTS,
@@ -97,6 +98,8 @@ export const parseResults = (filename) => {
       filename,
     });
 
+    const throttle = throat(10);
+
     unparsedResults
       .map(row => ({
         fromCurrency: row[currencyIndex],
@@ -104,11 +107,11 @@ export const parseResults = (filename) => {
         origRow: row,
       }))
         .forEach((row, index) => {
-          fetchHistoricalValueForCurrency({
+          throttle(fetchHistoricalValueForCurrency.bind(null, {
             fromCurrency: staticToCurrency || row.fromCurrency,
             date: row.date,
             toCurrency,
-          })
+          }))
             .then(({ middlePrice }) => {
               if (isNaN(middlePrice)) {
                 throw Error();
