@@ -14,11 +14,11 @@ export default () => (
       <div>
         <h1>Fast med deklarationen för dina kryptovalutor?</h1>
         <h2>K4 Krypto gör valutakonverteringen åt dig!</h2>
-        <p>(Så du får fria händer att forstsätta hodla)</p>
+        <p>(Så du får fria händer att forstsätta hodla) <i class="em em-fist"></i></p>
         <div style={{ textAlign: 'center' }}>
           <Button raised >
             <a href="/las-av-fil">
-              Börja nu
+              Börja nu <i class="em em-rocket"></i>
             </a>
           </Button>
         </div>
@@ -26,7 +26,7 @@ export default () => (
     </div>
     <div className={styles.Presentation}>
       <div>
-        <h2>Bli av med det direkt!</h2>
+        <h2>Bli av med det direkt! <i class="em em-heavy_check_mark"></i></h2>
         <ol>
           <li>Hämta din CSV-fil genom att enkelt exportera den från respektive exchange och/eller wallet.</li>
           <li>Ladda upp filerna på K4 Krypto</li>
@@ -36,12 +36,12 @@ export default () => (
       </div>
 
       <div>
-        <h2>Vi värnar om din integritet</h2>
+        <h2>Vi värnar om din integritet <i class="em em-hand"></i></h2>
         <p>K4 Krypto sparar ingen data från användarna. Hela processen sker lokalt, den går aldrig via våra servrar.</p>
       </div>
 
       <div> 
-        <h2>Konvertera alla dina transaktioner!</h2>
+        <h2>Konvertera alla dina transaktioner! <i class="em em-muscle"></i></h2>
           <p>När du deklarerar din handel med kryptovalutor kräver ska du redogöra för alla transaktioner. Dessutom ska alla belopp konverteras till SEK så som kursen stod vid transaktionstillfället. Ja, du hör ju. Att göra detta manuellt är enormt tidskrävande och krångligt.</p>
           <p>K4 Krypto låter dig istället konvertera dina transaktioner till SEK via ett par enkla klick. Du får sedan en färdig fil att ladda ned för din deklaration.</p>
         <p>När du deklarerar din handel med kryptovalutor ska du deklarera all handel mellan olika kryptovalutor samt värdet av respektive transaktion i SEK.</p>
