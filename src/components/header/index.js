@@ -16,6 +16,7 @@ export default class Header extends Component {
           <Link href="/ansvar-och-villkor">Ansvar och villkor</Link>
           <Link href="/fragor-och-svar">Frågor och svar</Link>
           <Link href="/om-tjansten">Om tjänsten</Link>
+          <Link href="/om-k4-krypto">Om oss</Link>
         </nav>
 			</header>
 		);

@@ -5,12 +5,12 @@ import UAParser from 'ua-parser-js';
 
 import history from '../history';
 import AboutK4K from './about-k4k';
+import AboutUs from './about-us';
 import DisclaimerPage from './disclaimer-page';
 import FAQ from './faq';
 import Header from './header';
 import Home from './home';
 import ConvertCurrency from '../containers/convert-currency';
-import Profile from './profile';
 import FileManager from '../containers/file-manager';
 import BrowserChecker from './browser-checker';
 
@@ -44,6 +44,7 @@ export default class App extends Component {
 					<Home path="/" />
           <FileManager path="/las-av-fil/:filename?/:action?/:param?" />
           <AboutK4K path="/om-tjansten" />
+          <AboutUs path="/om-k4-krypto" />
           <FAQ path="/fragor-och-svar" />
           <DisclaimerPage path="/ansvar-och-villkor" />
 				</Router>
