@@ -131,7 +131,8 @@ module.exports = {
       disable: ENV !== 'production'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(ENV)
+      'process.env.NODE_ENV': JSON.stringify(ENV),
+      'process.env.GA_TRACKING_ID': JSON.stringify(process.env.GA_TRACKING_ID),
     }),
     new HtmlWebpackPlugin({
       template: './index.ejs',
