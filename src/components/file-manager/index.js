@@ -24,6 +24,7 @@ export default class FileManager {
           path={`${basePath}/:filename`}
           headerRows={this.props.headerRow}
           nrExpectedResults={this.props.nrExpectedResults}
+          nrParsedResults={this.props.nrParsedResults}
           onDownloadParsedResults={this.props.onDownloadParsedResults}
           parseErrorRows={this.props.parseErrorRows}
           parsedResults={this.props.parsedResults}

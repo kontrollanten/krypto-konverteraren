@@ -13,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     headerRow: fileState.headerRow,
     nrExpectedResults: fileState.nrExpectedResults,
+    nrParsedResults: fileState.nrParsedResults,
     parseErrorRows: fileState.parseErrorRows,
     parsedResults: fileState.parsedResults,
   };

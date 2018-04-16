@@ -85,6 +85,7 @@ export const parseResults = (filename) => {
     const toCurrency = 'SEK';
     const parsedResults = [...unparsedResults];
     const colNumbers = parsedResults[0].length;
+    let nrParsedResults = 0;
 
     const convertMapping = amountIndexes
       .map((fromIndex, i) => ({ fromIndex, toIndex: i + colNumbers }));
@@ -118,10 +119,13 @@ export const parseResults = (filename) => {
                   parsedResults[index][toIndex] = middlePrice * row.origRow[fromIndex];
                 });
 
+              nrParsedResults += 1;
+
               dispatch({
                 type: PARSE_RESULTS_SUCCESS,
                 filename,
                 parsedResults: [...parsedResults],
+                nrParsedResults,
               });
             })
             .catch(error => {

@@ -50,6 +50,7 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           parsedResults: [...action.parsedResults],
+          nrParsedResults: action.nrParsedResults,
         },
       };
     case REMOVE_ROWS_SUCCESS:

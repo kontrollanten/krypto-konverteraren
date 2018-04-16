@@ -18,9 +18,9 @@ export default class ShowParsedFile extends Component {
 
   render() {
     const errorRows = this.props.parseErrorRows;
-    const parsedRows = this.props.parsedResults.filter(r => r !== undefined).length;
+    const nrParsedResults = this.props.nrParsedResults;
     const nrExpectedResults = this.props.nrExpectedResults;
-    const progress = (parsedRows + errorRows) / nrExpectedResults;
+    const progress = (nrParsedResults + errorRows) / nrExpectedResults;
     const isLoading = progress !== 1.0;
 
     return (
@@ -36,8 +36,8 @@ export default class ShowParsedFile extends Component {
             Ladda ner resultat
           </Button>
         </Header>
-        <h2>{parsedRows} av {nrExpectedResults} konverterades</h2>
-        <LinearProgress progress={progress} />
+        <h2>{nrParsedResults} av {nrExpectedResults} konverterades</h2>
+        <LinearProgress progress={progress.toFixed(1)} indeterminate={false} />
         {!!errorRows.length && (
           <div>
             <p>Resultatet på följande rader kunde inte konverteras:</p>
