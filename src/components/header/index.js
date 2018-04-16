@@ -12,11 +12,9 @@ export default class Header extends Component {
           <img src={logo} height="28" />
         </Link></h1>
         <nav>
-          <Link href="/las-av-fil">Konvertera fil</Link>
-          <Link href="/ansvar-och-villkor">Ansvar och villkor</Link>
-          <Link href="/fragor-och-svar">Frågor och svar</Link>
+          <Link href="/las-av-fil">Sätt igång</Link>
+          <Link href="/fragor-och-svar">Vanliga frågor</Link>
           <Link href="/om-tjansten">Om tjänsten</Link>
-          <Link href="/om-k4-krypto">Om oss</Link>
         </nav>
 			</header>
 		);

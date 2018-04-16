@@ -8,6 +8,7 @@ import AboutK4K from './about-k4k';
 import AboutUs from './about-us';
 import DisclaimerPage from './disclaimer-page';
 import FAQ from './faq';
+import Footer from './footer';
 import Header from './header';
 import Home from './home';
 import ConvertCurrency from '../containers/convert-currency';
@@ -51,6 +52,7 @@ export default class App extends Component {
         {browser.name.toLowerCase() !== 'chrome' && (
           <BrowserChecker />
         )}
+        <Footer />
 			</div>
 		);
 	}
