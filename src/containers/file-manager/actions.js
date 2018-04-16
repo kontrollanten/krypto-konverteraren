@@ -50,12 +50,6 @@ export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date
   return value;
 };
 
-const arrayToCsvRow = arr =>
-  arr
-    .map(row => row.join(','))
-    .join('\r\n');
-
-
 export const downloadParsedResults = filename => {
   return (dispatch, getState) => {
     const { headerRow, parsedResults } = getState().FileManager[filename];
@@ -80,67 +74,65 @@ export const downloadParsedResults = filename => {
 
 export const parseResults = (filename) => {
   return (dispatch, getState) => {
-    const { amountIndexes, unparsedResults } = getState().FileManager[filename];
+    const { 
+      amountIndexes,
+      currencyIndex,
+      dateIndex,
+      headerRow,
+      staticToCurrency,
+      unparsedResults,
+    } = getState().FileManager[filename];
     const toCurrency = 'SEK';
     const parsedResults = [...unparsedResults];
+    const colNumbers = parsedResults[0].length;
 
-    // TODO: Sort?
-    amountIndexes
-      .forEach(amountIndex => {
-        const { 
-          currencyIndex,
-          dateIndex,
-          headerRow,
-          staticToCurrency,
-        } = getState().FileManager[filename];
-        const indexToAppend = headerRow.length;
+    const convertMapping = amountIndexes
+      .map((fromIndex, i) => ({ fromIndex, toIndex: i + colNumbers }));
 
-        dispatch({
-          type: PARSE_RESULTS,
-          headerRow: [...headerRow, headerRow[amountIndex].concat(` (${toCurrency})`)],
-          nrExpectedResults: unparsedResults.length,
-          filename,
-        });
+    dispatch({
+      type: PARSE_RESULTS,
+      headerRow: [...headerRow, ...convertMapping.map(({ fromIndex }) => headerRow[fromIndex].concat(` (${toCurrency})`))],
+      nrExpectedResults: unparsedResults.length,
+      filename,
+    });
 
-        unparsedResults
-          .map(row => ({
-            fromCurrency: row[currencyIndex],
-            amount: row[amountIndex],
-            date: row[dateIndex],
-          }))
-          .forEach((row, index) => {
-            if (isNaN(parseFloat(row.amount))) {
-              parsedResults[index][indexToAppend] = null;
-              return;
-            }
+    unparsedResults
+      .map(row => ({
+        fromCurrency: row[currencyIndex],
+        date: row[dateIndex],
+        origRow: row,
+      }))
+        .forEach((row, index) => {
+          fetchHistoricalValueForCurrency({
+            fromCurrency: staticToCurrency || row.fromCurrency,
+            date: row.date,
+            toCurrency,
+          })
+            .then(({ middlePrice }) => {
+              if (isNaN(middlePrice)) {
+                throw Error();
+              }
 
-            fetchHistoricalValueForCurrency({
-              fromCurrency: staticToCurrency || row.fromCurrency,
-              date: row.date,
-              toCurrency,
-            })
-              .then(({ middlePrice }) => {
-                if (isNaN(middlePrice)) {
-                  throw Error();
-                }
-                parsedResults[index][indexToAppend] = middlePrice * row.amount;
-
-                dispatch({
-                  type: PARSE_RESULTS_SUCCESS,
-                  filename,
-                  parsedResults: [...parsedResults],
+              convertMapping
+                .forEach(({ fromIndex, toIndex }) => {
+                  parsedResults[index][toIndex] = middlePrice * row.origRow[fromIndex];
                 });
-              })
-              .catch(error => {
-                parsedResults[index] = null;
-                dispatch({
-                  type: PARSE_RESULTS_FAILURE,
-                  filename,
-                  row: index + 1,
-                });
+
+              dispatch({
+                type: PARSE_RESULTS_SUCCESS,
+                filename,
+                parsedResults: [...parsedResults],
               });
-          });
-      });
+            })
+            .catch(error => {
+              parsedResults[index] = null;
+              dispatch({
+                type: PARSE_RESULTS_FAILURE,
+                filename,
+                row: index + 1,
+              });
+            });
+        });
   };
 };
 
