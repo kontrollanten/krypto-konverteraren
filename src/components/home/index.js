@@ -12,8 +12,9 @@ export default () => (
   <ContentWrapper className={styles.Container}>
     <div className={styles.Header}>
       <div>
-        <h1>Har du handlat med kryptovalutor?</h1>
-        <h2>Förenkla din inkomstdeklaration med ett par klick!</h2>
+        <h1>Fast med deklarationen för dina kryptovalutor?</h1>
+        <h2>K4 Krypto gör valutakonverteringen åt dig!</h2>
+        <p>(Så du får fria händer att forstsätta hodla)</p>
         <div style={{ textAlign: 'center' }}>
           <Button raised >
             <a href="/las-av-fil">
@@ -24,20 +25,27 @@ export default () => (
       </div>
     </div>
     <div className={styles.Presentation}>
-      <div> 
-        <h2>Varför?</h2>
-        <p>När du deklarerar din handel med kryptovalutor ska du deklarera all handel mellan olika kryptovalutor samt värdet av respektive transaktion i SEK.</p>
-        <p>Detta innebär för många att de behöver räkna om belopp för hundratals transaktioner.</p>
+      <div>
+        <h2>Bli av med det direkt!</h2>
+        <ol>
+          <li>Hämta din CSV-fil genom att enkelt exportera den från respektive exchange och/eller wallet.</li>
+          <li>Ladda upp filerna på K4 Krypto</li>
+          <li>K4 Krypto adderar en kolumn med SEK-värdet i respektive fil.</li>
+          <li>Klart! Ladda ned den nya konverterade filen!</li>
+        </ol>
       </div>
 
       <div>
-        <h2>Hur?</h2>
-        <ol>
-          <li>Exportera din transaktionshistorik från respektive exchange och/eller wallet.</li>
-          <li>Ladda upp filerna på K4 Krypto.</li>
-          <li>K4 Krypto adderar en kolumn med SEK-värdet i respektive fil.</li>
-          <li>Ladda ner de nya filerna.</li>
-        </ol>
+        <h2>Vi värnar om din integritet</h2>
+        <p>K4 Krypto sparar ingen data från användarna. Hela processen sker lokalt, den går aldrig via våra servrar.</p>
+      </div>
+
+      <div> 
+        <h2>Konvertera alla dina transaktioner!</h2>
+          <p>När du deklarerar din handel med kryptovalutor kräver ska du redogöra för alla transaktioner. Dessutom ska alla belopp konverteras till SEK så som kursen stod vid transaktionstillfället. Ja, du hör ju. Att göra detta manuellt är enormt tidskrävande och krångligt.</p>
+          <p>K4 Krypto låter dig istället konsertera dina transaktioner till SEK via ett par enkla klick. Du får sedan en färdig fil att ladda ned för din deklaration.</p>
+        <p>När du deklarerar din handel med kryptovalutor ska du deklarera all handel mellan olika kryptovalutor samt värdet av respektive transaktion i SEK.</p>
+        <p>Detta innebär för många att de behöver räkna om belopp för hundratals transaktioner.</p>
       </div>
     </div> 
   </ContentWrapper>
