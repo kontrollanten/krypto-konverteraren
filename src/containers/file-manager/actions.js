@@ -57,7 +57,9 @@ export const downloadParsedResults = filename => {
 
     const fileContent = 'data:text/csv;charset=utf-8,'
       .concat(
-        arrayToCsvRow([headerRow, ...parsedResults]),
+        [headerRow, ...parsedResults]
+          .map(row => row.join(','))
+          .join('\r\n')
       );
 
     const encodedFile = encodeURI(fileContent);
