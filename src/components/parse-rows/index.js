@@ -79,7 +79,6 @@ export default class ParseRows extends Component {
             {this.props.loading ? 'Validerar' : 'Nästa'}
           </Button>
         </Header>
-        {this.props.loading && <p>Analyserar filen.</p>}
 
         <div className={this.state.hasVerifiedHeader ? styles.Done : ''}>
           <h2>Kolumnrubriker</h2>
