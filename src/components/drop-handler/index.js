@@ -1,10 +1,15 @@
 import { h, Component } from 'preact';
+import Button from 'preact-material-components/Button';
+import 'preact-material-components/Button/style.css';
+import 'preact-material-components/Theme/style.css';
 import history from '../../history'; 
 import styles from './style.less';
 
 export default class DropHandler extends Component {
   state = {
     error: '',
+    filename: '',
+    hasVerified: false,
     hovering: false,
     enterCounter: 0,
   };
@@ -12,10 +17,23 @@ export default class DropHandler extends Component {
   constructor(props) {
     super(props);
 
+    this.handleClickVerify = this.handleClickVerify.bind(this);
     this.handleDragEnter = this.handleDragEnter.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+  }
+
+  componentWillUpdate(props, { filename, hasVerified }) {
+    if (hasVerified && !!filename) {
+      history.push(this.props.path.concat('/', filename, '/tolka-rader'));
+    }
+  }
+
+  handleClickVerify() {
+    this.setState({
+      hasVerified: true,
+    });
   }
 
   handleDragEnter(event) {
@@ -67,8 +85,9 @@ export default class DropHandler extends Component {
 
     this.props.onSelectFile(files[0])
       .then(() => {
-        console.log('selected');
-        history.push(this.props.path.concat('/', files[0].name, '/tolka-rader'));
+        this.setState({
+          filename: files[0].name,
+        });
       });
   }
 
@@ -88,10 +107,24 @@ export default class DropHandler extends Component {
         </div>
         <div className={[styles.MessageBox].concat(this.state.hovering && styles.Active).join(' ')}>
           <strong>
-            Släpp din fil här
+            {this.state.filename ? this.state.filename : 'Släpp din fil här'}
           </strong>
           
           {this.state.error && <div className={styles.Error}>{this.state.error}</div>}
+        </div>
+
+        <div className={styles.Confirmation}>
+          <p>K4 Krypto tar inget ansvar för uppgifterna som genereras i detta verktyg. Detta ska ses som hjälp för att underlätta deklareringen men inte som ett heltäckande eller en giltig referens. Användaren är själv ansvarig för de uppgifter som lämnas till Skatteverket samt på vilket sätt användaren är skyldig att lämna sin deklaration. </p>
+          <div>
+            <Button
+              disabled={this.state.hasVerified}
+              onClick={this.handleClickVerify}
+              raised
+              ripple
+            >
+              Jag förstår
+            </Button>
+          </div>
         </div>
       </div>
     );
