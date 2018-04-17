@@ -131,6 +131,10 @@ export default class ParseColumns extends Component {
             handleSelectCurrency={this.handleSelectCurrency}
             onClickResolve={this.handleResolveKey}
             progress={this.state.progress}
+            validatedKeys={{
+              amount: this.props.amountColumnValidated,
+              date: this.props.dateColumnValidated,
+            }}
             validating={this.props.validating}
           />
         </div>

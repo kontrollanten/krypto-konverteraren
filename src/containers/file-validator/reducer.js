@@ -34,6 +34,7 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           errorMessage: '',
+          amountColumnValidated: false,
           validating: true,
         },
       };
@@ -61,6 +62,7 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           errorMessage: '',
+          dateColumnValidated: false,
           validating: true,
         },
       };

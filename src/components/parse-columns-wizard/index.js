@@ -20,6 +20,7 @@ export default ({
   handleSelectCurrency,
   progress,
   onClickResolve,
+  validatedKeys,
   validating,
 }) => {
   const steps = [
@@ -73,12 +74,12 @@ export default ({
             <div>
               {step.key === currentKey && (
                 <Button
-                  disabled={validating}
+                  disabled={validatedKeys[step.key] === false}
                   onClick={onClickResolve}
                   raised
                   ripple
                 >
-                  Klar
+                  {validating ? 'Validerar' : 'Klar'}
                 </Button>
               )}
             </div>

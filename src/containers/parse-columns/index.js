@@ -11,9 +11,11 @@ const mapStateToProps = (state, ownProps) => {
   const validationState = state.FileValidator[ownProps.filename] || {};
 
   return {
+    amountColumnValidated: validationState.amountColumnValidated,
     amountIndexes: fileState.amountIndexes,
     currencyIndex: fileState.currencyIndex,
     currencies: state.ConvertCurrency.currencies,
+    dateColumnValidated: validationState.dateColumnValidated,
     dateIndex: fileState.dateIndex,
     staticToCurrency: fileState.staticToCurrency,
     unparsedResults: fileState.unparsedResults,
