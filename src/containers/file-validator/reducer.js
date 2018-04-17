@@ -33,6 +33,7 @@ export default (state = {}, action) => {
         ...state,
         [action.filename]: {
           ...state[action.filename],
+          errorMessage: '',
           validating: true,
         },
       };
@@ -59,6 +60,7 @@ export default (state = {}, action) => {
         ...state,
         [action.filename]: {
           ...state[action.filename],
+          errorMessage: '',
           validating: true,
         },
       };

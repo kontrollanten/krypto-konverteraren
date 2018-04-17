@@ -4,6 +4,7 @@ import 'preact-material-components/Button/style.css';
 import 'preact-material-components/Theme/style.css';
 import history from '../../history';
 
+import Notification from '../notification';
 import TransactionTable from '../transaction-table';
 import Wizard from '../parse-columns-wizard';
 import Header  from '../file-manager-header';
@@ -109,18 +110,6 @@ export default class ParseColumns extends Component {
   }
 
   render() {
-    if (this.props.validationErrorMessage) {
-      return (
-        <div className={styles.Container}>
-          <Header>
-            <h1>Någonting gick fel</h1>
-          </Header>
-          <p>Vi lyckades inte validera filen {this.props.filename}:</p>
-          <p><strong>{this.props.validationErrorMessage}</strong></p>
-        </div>
-      );
-    }
-
     return (
       <div className={styles.Container}>
         <Header>
@@ -145,6 +134,11 @@ export default class ParseColumns extends Component {
             validating={this.props.validating}
           />
         </div>
+        {this.props.validationErrorMessage && (
+          <Notification>
+            <strong>{this.props.validationErrorMessage}</strong>
+          </Notification>
+        )}
         {this.props.unparsedResults && <TransactionTable
           headerRows={[this.props.headerRow]}
           rows={this.props.unparsedResults.slice(0, 10)}

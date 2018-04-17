@@ -1,0 +1,22 @@
+@icon-size: 40px;
+
+.Container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 60;
+  background-color: #fff;
+  width: 300px;
+  color: red;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+
+  .Inner {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: calc(@icon-size + 20px) 1fr;
+
+    .Icon {
+      font-size: @icon-size !important;
+    }
+  }
+}
