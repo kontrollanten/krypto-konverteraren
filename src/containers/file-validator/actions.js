@@ -1,5 +1,5 @@
 import ValidateColumnsWorker from './validate-column-count.worker.js';
-import ValidateAmountColumnsWorker from './validate-date-columns.worker.js';
+import ValidateAmountColumnsWorker from './validate-amount-columns.worker.js';
 import ValidateDateColumnsWorker from './validate-date-columns.worker.js';
 import {
   VALIDATE_AMOUNT_COLUMNS,

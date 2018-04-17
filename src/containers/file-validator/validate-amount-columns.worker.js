@@ -1,11 +1,11 @@
 const validateAmountColumns = (rows, amountIndex) => {
   const invariants = rows
     .map((row, index) => ({ amount: row[amountIndex], rowNr: index + 1 }))
-    .filter(row => !isNaN(parseFloat(row.amount)))
-    .pop();
+    .filter(row => isNaN(parseFloat(row.amount)))
+    .shift();
 
   if (invariants) {
-    return Error(`Rad ${invariants.row} innehåller ett felaktigt beloppsformat.`);
+    return Error(`Rad ${invariants.rowNr} innehåller ett felaktigt beloppsformat.`);
   }
 
   return;
