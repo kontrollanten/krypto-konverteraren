@@ -15,7 +15,6 @@ const mapStateToProps = (state, ownProps) => {
     currencyIndex: fileState.currencyIndex,
     currencies: state.ConvertCurrency.currencies,
     dateIndex: fileState.dateIndex,
-    parseIndexes: fileState.parseIndexes,
     staticToCurrency: fileState.staticToCurrency,
     unparsedResults: fileState.unparsedResults,
     validating: validationState.validating,
