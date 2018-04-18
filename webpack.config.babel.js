@@ -144,6 +144,7 @@ module.exports = {
       { from: './manifest.json', to: './' },
       { from: './favicon.ico', to: './' },
       { from: './google*.html', to: './' },
+      { from: './_redirects', to: './' },
     ])
   ]).concat(ENV==='production' ? [
     new PreloadWebpackPlugin({

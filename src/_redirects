@@ -1,0 +1,6 @@
+# Redirect domain aliases to primary domain
+https://krypto-konverteraren.se/* https://k4krypto.se/:splat 301!
+https://kryptokonverteraren.se/* https://k4krypto.se/:splat 301!
+https://k4crypto.se/* https://k4krypto.se/:splat 301!
+https://k4krypto.com/* https://k4krypto.se/:splat 301!
+https://k4crypto.com/* https://k4krypto.se/:splat 301!
