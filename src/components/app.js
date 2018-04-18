@@ -35,7 +35,15 @@ export default class App extends Component {
             {
               name: 'description',
               content: 'Ska du inkomstdeklarera din handel med krypto-valutor? Få hjälp med K4 Krypto!'
-            }
+            },
+            {
+              name: 'og:image',
+              content: 'https://k4krypto.se/assets/images/facebook-share.jpeg'
+            },
+            {
+              name: 'og:title',
+              content: 'Fast med deklarationen för dina kryptovalutor?'
+            },
           ]}
         />
 
