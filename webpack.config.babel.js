@@ -5,6 +5,7 @@ import autoprefixer from 'autoprefixer';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
+import PreloadWebpackPlugin from 'preload-webpack-plugin';
 const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV!=='production';
@@ -16,7 +17,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    chunkFilename: '[name].[chunkhash].js',
   },
 
   resolve: {
@@ -144,6 +146,9 @@ module.exports = {
       { from: './google*.html', to: './' },
     ])
   ]).concat(ENV==='production' ? [
+    new PreloadWebpackPlugin({
+      rel: 'prefetch',
+    }),
     new webpack.optimize.UglifyJsPlugin({
       output: {
         comments: false
