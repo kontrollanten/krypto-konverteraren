@@ -107,9 +107,11 @@ export default class DropHandler extends Component {
             respektive rad.</p>
         </div>
         <div className={[styles.MessageBox].concat(this.state.hovering && styles.Active).join(' ')}>
-          <strong>
-            {this.state.filename ? this.state.filename : 'Släpp din fil här'}
-          </strong>
+          <div className={styles.Filename}>
+            <strong>
+              {this.state.filename ? this.state.filename : 'Släpp din fil här'}
+            </strong>
+          </div>
           
           <p className={styles.PrivacyInfo}>All information filen stannar i din webbläsare, ingenting skickas till våra, eller någon annans, servrar.</p>
           {this.state.error && <div className={styles.Error}>{this.state.error}</div>}

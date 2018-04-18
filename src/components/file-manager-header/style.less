@@ -2,6 +2,12 @@
   display: grid;
   grid-template-columns: 2fr;
 
+  h1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
   :nth-child(1) {
     grid-column: 1;
   }
