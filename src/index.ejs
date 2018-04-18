@@ -23,6 +23,8 @@
   <link rel="icon" type="image/png" href="/assets/icons/icon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="/assets/icons/icon-16x16.png" sizes="16x16">
   <link rel="manifest" href="./manifest.json">
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="preload" as="style" onload="this.rel='stylesheet'" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="preload" as="style" onload="this.rel='stylesheet'" />
 </head>
 <body>
   <div id="app"></div>
@@ -36,7 +38,5 @@
     gtag('config', '<%= process.env.GA_TRACKING_ID %>');
   </script>
 
-  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 </body>
 </html>
