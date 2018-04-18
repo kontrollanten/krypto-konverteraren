@@ -111,6 +111,7 @@ export default class DropHandler extends Component {
             {this.state.filename ? this.state.filename : 'Släpp din fil här'}
           </strong>
           
+          <p className={styles.PrivacyInfo}>All information filen stannar i din webbläsare, ingenting skickas till våra, eller någon annans, servrar.</p>
           {this.state.error && <div className={styles.Error}>{this.state.error}</div>}
         </div>
 
