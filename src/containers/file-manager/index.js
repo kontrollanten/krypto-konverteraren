@@ -11,11 +11,11 @@ const mapStateToProps = (state, ownProps) => {
   const validationState = state.FileValidator[ownProps.filename] || {};
 
   return {
-    headerRow: fileState.headerRow,
+    headerRow: fileState.headerRow || [],
     nrExpectedResults: fileState.nrExpectedResults,
     nrParsedResults: fileState.nrParsedResults,
-    parseErrorRows: fileState.parseErrorRows,
-    parsedResults: fileState.parsedResults,
+    parseErrorRows: fileState.parseErrorRows || [],
+    parsedResults: fileState.parsedResults || [],
   };
 };
 
