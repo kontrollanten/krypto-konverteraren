@@ -3,6 +3,9 @@ import {
   VALIDATE_AMOUNT_COLUMNS,
   VALIDATE_AMOUNT_COLUMNS_FAILURE,
   VALIDATE_AMOUNT_COLUMNS_SUCCESS,
+  VALIDATE_CURRENCY_COLUMNS,
+  VALIDATE_CURRENCY_COLUMNS_FAILURE,
+  VALIDATE_CURRENCY_COLUMNS_SUCCESS,
   VALIDATE_DATE_COLUMNS,
   VALIDATE_DATE_COLUMNS_FAILURE,
   VALIDATE_DATE_COLUMNS_SUCCESS,
@@ -14,6 +17,7 @@ import {
 const initialSubState = {
   columnCountValidated: false,
   amountColumnValidated: false,
+  currencyColumnValidated: false,
   dateColumnValidated: false,
   errorMessage: null,
   validating: false,
@@ -53,6 +57,35 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           amountColumnValidated: true,
+          validating: false,
+        },
+      };
+    case VALIDATE_CURRENCY_COLUMNS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          currencyColumnValidated: false,
+          errorMessage: '',
+          validating: true,
+        },
+      };
+    case VALIDATE_CURRENCY_COLUMNS_FAILURE:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          currencyColumnValidated: false,
+          errorMessage: action.errorMessage,
+          validating: false,
+        },
+      };
+    case VALIDATE_CURRENCY_COLUMNS_SUCCESS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          currencyColumnValidated: true,
           validating: false,
         },
       };

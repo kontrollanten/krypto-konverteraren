@@ -1,6 +1,6 @@
 import moment from 'moment';
 import throat from 'throat';
-import { validateAmountColumns, validateColumnCount, validateDateColumns } from '../file-validator/actions';
+import { validateAmountColumns, validateColumnCount, validateCurrencyColumns, validateDateColumns } from '../file-validator/actions';
 import ParseFileWorker from './parse-file.worker';
 import {
   PARSE_RESULTS,
@@ -215,6 +215,9 @@ export const updateParseIndex = ({ filename, key, index }) => {
         break;
       case 'amount':
         dispatch(validateAmountColumns({ filename, rows: rows.slice(1), amountIndex: index }));
+        break;
+      case 'currency':
+        dispatch(validateCurrencyColumns({ filename, rows: rows.slice(1), currencyIndex: index }));
         break;
     };
   };

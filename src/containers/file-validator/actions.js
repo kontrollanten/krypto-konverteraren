@@ -1,6 +1,7 @@
 import ValidateColumnsWorker from './validate-column-count.worker.js';
 import ValidateAmountColumnsWorker from './validate-amount-columns.worker.js';
 import ValidateDateColumnsWorker from './validate-date-columns.worker.js';
+import ValidateCurrencyColumnsWorker from './validate-currency-columns.worker';
 import {
   VALIDATE_AMOUNT_COLUMNS,
   VALIDATE_AMOUNT_COLUMNS_FAILURE,
@@ -11,6 +12,9 @@ import {
   VALIDATE_COLUMN_COUNT,
   VALIDATE_COLUMN_COUNT_FAILURE,
   VALIDATE_COLUMN_COUNT_SUCCESS,
+  VALIDATE_CURRENCY_COLUMNS,
+  VALIDATE_CURRENCY_COLUMNS_FAILURE,
+  VALIDATE_CURRENCY_COLUMNS_SUCCESS,
 } from './types';
 
 export const validateAmountColumns = ({ filename, rows, amountIndex }) => {
@@ -69,7 +73,36 @@ export const validateColumnCount = (filename, rows) => {
       });
     });
   };
-}
+};
+
+export const validateCurrencyColumns = ({ filename, rows, currencyIndex }) => {
+  return dispatch => {
+    dispatch({
+      type: VALIDATE_CURRENCY_COLUMNS,
+      filename,
+    });
+
+    const worker = new ValidateCurrencyColumnsWorker();
+    worker.addEventListener('message', event => {
+      const { errorMessage } = event.data;
+
+      if (errorMessage) {
+        return dispatch({
+          type: VALIDATE_CURRENCY_COLUMNS_FAILURE,
+          errorMessage,
+          filename,
+        });
+      }
+
+      dispatch({
+        type: VALIDATE_CURRENCY_COLUMNS_SUCCESS,
+        filename,
+      });
+    });
+
+    worker.postMessage({ rows, currencyIndex });
+  };
+};
 
 export const validateDateColumns = ({ filename, rows, dateIndex }) => {
   return dispatch => {
