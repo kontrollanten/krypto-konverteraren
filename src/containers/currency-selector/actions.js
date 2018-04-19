@@ -1,4 +1,4 @@
-import SortCurrenciesWorker from './sort-currencies.worker';
+import FetchCurrenciesWorker from './fetch-currencies.worker';
 import {
   FETCH_CURRENCIES,
   FETCH_CURRENCIES_FAILURE,
@@ -11,28 +11,25 @@ export const fetchCurrencies = () => {
       type: FETCH_CURRENCIES,
     });
 
-    fetch('https://min-api.cryptocompare.com/data/all/coinlist')
-      .then(response => response.json())
-      .then(jsonResponse => {
-        const worker = new SortCurrenciesWorker();
-        worker.postMessage({ currencies: Object.values(jsonResponse.Data) });
+    const worker = new FetchCurrenciesWorker();
+    worker.postMessage({});
 
-        worker.addEventListener('message', event => {
-          const { currencies } = event.data;
+    worker.addEventListener('message', event => {
+      const { currencies, error } = event.data;
 
-          dispatch({
-            type: FETCH_CURRENCIES_SUCCESS,
-            currencies,
-          });
-
-          worker.terminate();
-        });
-      })
-      .catch(error => {
-        dispatch({
+      if (error) {
+        return dispatch({
           type: FETCH_CURRENCIES_FAILURE,
         });
+      }
+
+      dispatch({
+        type: FETCH_CURRENCIES_SUCCESS,
+        currencies,
       });
+
+      worker.terminate();
+    });
   };
 }
 
