@@ -1,7 +1,7 @@
-import Papa from 'papaparse';
 import moment from 'moment';
 import throat from 'throat';
 import { validateAmountColumns, validateColumnCount, validateDateColumns } from '../file-validator/actions';
+import ParseFileWorker from './parse-file.worker';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -152,23 +152,20 @@ export const selectFile = file => {
       filename: file.name,
     });
 
-    return new Promise(resolve => {
-      Papa.parse(file, {
-        complete: results => {
-          const rows = results.data;
+    const worker = new ParseFileWorker();
+    worker.addEventListener('message', ({ data }) => {
+      const { rows } = data;
 
-          dispatch({
-            type: SELECT_FILE_SUCCESS,
-            filename: file.name,
-            results: rows,
-          });
-   
-          dispatch(validateColumnCount(file.name, rows));
-
-          resolve();
-        },
+      dispatch({
+        type: SELECT_FILE_SUCCESS,
+        filename: file.name,
+        results: rows,
       });
+
+      dispatch(validateColumnCount(file.name, rows));
     });
+
+    worker.postMessage({ file });
   };
 };
 

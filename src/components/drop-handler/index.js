@@ -86,12 +86,11 @@ export default class DropHandler extends Component {
       */
     }
 
-    this.props.onSelectFile(files[0])
-      .then(() => {
-        this.setState({
-          filename: files[0].name,
-        });
-      });
+    this.props.onSelectFile(files[0]);
+
+    this.setState({
+      filename: files[0].name,
+    });
   }
 
   render() {
