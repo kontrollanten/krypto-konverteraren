@@ -203,7 +203,7 @@ export const updateParseIndex = ({ filename, key, index }) => {
         break;
     };
 
-    if (!index) {
+    if (index === null) {
       return;
     }
 
