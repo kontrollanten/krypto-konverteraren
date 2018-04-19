@@ -4,15 +4,14 @@ const validateDateColumns = (rows, dateIndex) => {
   const invariants = rows
     .map((row, index) => ({ date: row[dateIndex], rowNr: index + 1 }))
     .filter(row => !!row.date)
-    .filter(row => {
+    .find(row => {
       const valid = moment(row.date).isValid();
 
       return !valid;
-    })
-    .pop();
+    });
 
   if (invariants) {
-    return Error(`Rad ${invariants.rowNr} innehåller ett felaktigt datumformat.`);
+    return Error(`Rad ${invariants.rowNr} innehåller ett okänt datumformat.`);
   }
 
   return;
