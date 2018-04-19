@@ -78,10 +78,12 @@ export default class DropHandler extends Component {
     }
 
     if (file.type !== 'text/csv') {
-      this.setState({
-        error: `${file.name} är inte en CSV-fil.`,
-      });
-      return;
+      /*
+        this.setState({
+          error: `${file.name} verkar inte vara en CSV-fil.`,
+        });
+        return;
+      */
     }
 
     this.props.onSelectFile(files[0])
