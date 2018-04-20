@@ -4,9 +4,6 @@ import List from 'preact-material-components/List';
 import 'preact-material-components/List/style.css';
 import LinearProgress from 'preact-material-components/LinearProgress';
 import 'preact-material-components/LinearProgress/style.css';
-import Card from 'preact-material-components/Card';
-import 'preact-material-components/Card/style.css';
-import 'preact-material-components/Button/style.css';
 import Button from 'preact-material-components/Button';
 import 'preact-material-components/Button/style.css';
 import 'preact-material-components/Theme/style.css';
@@ -89,21 +86,20 @@ export default ({
       </List>
 
       {currentKey == 'currency' && (
-        <Card>
+        <div className={styles.Card}>
           <div className={styles.CardHeader}>
-            <h2 className="mdc-typography--title">Står inte valuta-namnet i tabellen?</h2>
-            <p className="mdc-typography--caption">Om valuta-namnet inte står med i tabellen och alla transaktioner
-              är gjorda med samma valuta kan du ange en statisk valuta.</p>
-
+            Står inte valuta-namnet i tabellen?
           </div>
-            <Card.Actions>
-              <CurrencySelector
-                currencies={currencies}
-                label="Välj en statisk valuta för samtliga transakationer"
-                onChange={handleSelectCurrency}
-              />
-            </Card.Actions>
-        </Card>
+            <p>Om valuta-namnet inte står med i tabellen och alla transaktioner
+              är gjorda med samma valuta kan du ange en statisk valuta.</p>
+          <div>
+            <CurrencySelector
+              currencies={currencies}
+              label="Välj en statisk valuta för samtliga transakationer"
+              onChange={handleSelectCurrency}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

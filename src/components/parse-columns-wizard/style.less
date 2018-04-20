@@ -17,7 +17,8 @@
 
 .Container {
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 60% 1fr;
+  grid-column-gap: 40px;
 
   [role=progressbar] {
     grid-column: 1 / span 3;
@@ -66,6 +67,18 @@
   opacity: 0.4;
 }
 
-.CardHeader {
-  padding: 8px;
+.Card {
+  padding: 15px;
+  font-family: Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+
+  .CardHeader {
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
 }
+
