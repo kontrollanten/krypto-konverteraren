@@ -1,4 +1,5 @@
 import { VERIFY_SUSPECTED_HEADER, REMOVE_ROWS_SUCCESS } from '../parse-rows/types';
+import { TRANSFORM_CURRENCY_NAME_SUCCESS } from '../transform-currency-names/types';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -91,6 +92,14 @@ export default (state = {}, action) => {
         [action.filename]: {
           ...state[action.filename],
           unparsedResults: action.results,
+        },
+      };
+    case TRANSFORM_CURRENCY_NAME_SUCCESS:
+      return {
+        ...state,
+        [action.filename]: {
+          ...state[action.filename],
+          unparsedResults: [...action.rows],
         },
       };
     case UPDATE_AMOUNT_INDEXES:

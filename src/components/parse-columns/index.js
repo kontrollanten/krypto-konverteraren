@@ -4,6 +4,7 @@ import 'preact-material-components/Button/style.css';
 import 'preact-material-components/Theme/style.css';
 import history from '../../history';
 
+import TransformCurrencyNames from '../../containers/transform-currency-names';
 import Notification from '../notification';
 import TransactionTable from '../transaction-table';
 import Wizard from '../parse-columns-wizard';
@@ -14,6 +15,7 @@ export default class ParseColumns extends Component {
   state = {
     progress: 0,
     selectedTableIndexes: [],
+    showCurrencyHelper: false,
   };
  
   constructor(props) {
@@ -23,6 +25,7 @@ export default class ParseColumns extends Component {
     this.handleClickNext = this.handleClickNext.bind(this);
     this.handleResolveKey = this.handleResolveKey.bind(this);
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
+    this.handleClickShowCurrHelp = this.handleClickShowCurrHelp.bind(this);
   }
 
   componentDidUpdate({
@@ -78,6 +81,12 @@ export default class ParseColumns extends Component {
     this.props.onSetStaticToCurrency({ symbol: target.value, filename: this.props.filename });
   }
 
+  handleClickShowCurrHelp() {
+    this.setState({
+      showCurrencyHelper: true,
+    });
+  }
+
   handleResolveKey() {
     let nextKey;
 
@@ -119,6 +128,9 @@ export default class ParseColumns extends Component {
   render() {
     return (
       <div className={styles.Container}>
+        {this.state.showCurrencyHelper && (
+          <TransformCurrencyNames index={this.props.currencyIndex} rows={this.props.unparsedResults} filename={this.props.filename} />
+        )}
         <Header>
           <h1>Tolka filen {this.props.filename}</h1>
           <Button
@@ -148,7 +160,17 @@ export default class ParseColumns extends Component {
         </div>
         {this.props.validationErrorMessage && (
           <Notification>
-            <strong>{this.props.validationErrorMessage}</strong>
+            <p><strong>{this.props.validationErrorMessage}</strong></p>
+            {this.props.parseKey === 'currency' && (
+              <Button
+                dense
+                ripple
+                raised
+                onClick={this.handleClickShowCurrHelp}
+              >
+                Hjälp
+              </Button>
+            )}
           </Notification>
         )}
         {this.props.unparsedResults && <TransactionTable

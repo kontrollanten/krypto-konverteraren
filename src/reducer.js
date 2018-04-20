@@ -4,6 +4,7 @@ import CurrencySelector from './containers/currency-selector/reducer';
 import FileManager from './containers/file-manager/reducer';
 import FileValidator from './containers/file-validator/reducer';
 import ParseRows from './containers/parse-rows/reducer';
+import TransformCurrencyNames from './containers/transform-currency-names/reducer';
 
 export default combineReducers({
   ConvertCurrency,
@@ -11,4 +12,5 @@ export default combineReducers({
   FileManager,
   FileValidator,
   ParseRows,
+  TransformCurrencyNames,
 });
