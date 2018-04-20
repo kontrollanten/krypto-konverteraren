@@ -12,14 +12,13 @@ const getUniqueCurrenciesFromRows = (rows, index) =>
       .reduce((obj, row) => ({ ...obj, [row[index]]: true }), {})
   );
 
-
-
 self.addEventListener('message', ({ data }) => {
   const { currencies, index, rows } = data;
   const currencyStore = createCurrencyStore(currencies);
   const uniqueImportCurrencies = getUniqueCurrenciesFromRows(rows, index);
 
   const matches = uniqueImportCurrencies
+    .filter(currency => currencyStore[currency] !== true)
     .map(currency => ({
       original: currency,
       suggestion: currencyStore[currency.slice(1)] && currency.slice(1),
