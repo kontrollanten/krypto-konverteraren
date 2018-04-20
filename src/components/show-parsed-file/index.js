@@ -60,7 +60,8 @@ export default class ShowParsedFile extends Component {
 
         <TransactionTable
           headerRows={[this.props.headerRows]}
-          rows={this.props.parsedResults}
+          label="Rader 1-10:"
+          rows={this.props.parsedResults.slice(0, 10)}
         />
       </div>
     );
