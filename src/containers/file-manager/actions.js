@@ -1,7 +1,7 @@
 import moment from 'moment';
 import throat from 'throat';
 import { validateAmountColumns, validateColumnCount, validateCurrencyColumns, validateDateColumns } from '../file-validator/actions';
-import ParseFileWorker from './parse-file.worker';
+import ParseCsvWorker from './parse-csv.worker';
 import {
   PARSE_RESULTS,
   PARSE_RESULTS_FAILURE,
@@ -153,7 +153,7 @@ export const selectFile = file => {
       filename: file.name,
     });
 
-    const worker = new ParseFileWorker();
+    const worker = new ParseCsvWorker();
     worker.addEventListener('message', ({ data }) => {
       const { rows } = data;
 
