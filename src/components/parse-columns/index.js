@@ -25,7 +25,13 @@ export default class ParseColumns extends Component {
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
   }
 
-  componentDidUpdate({ amountIndexes, currencyIndex, dateIndex, staticToCurrency, parseKey }) {
+  componentDidUpdate({
+    amountColumnValidated,
+    currencyColumnValidated,
+    dateColumnValidated,
+    staticToCurrency,
+    parseKey,
+  }) {
     if (parseKey !== this.props.parseKey) {
       this.updateSelectedTableIndexes();
     }
@@ -35,9 +41,9 @@ export default class ParseColumns extends Component {
     }
 
     switch (true) {
-      case amountIndexes !== this.props.amountIndexes:
-      case currencyIndex !== this.props.currencyIndex:
-      case dateIndex !== this.props.dateIndex:
+      case amountColumnValidated !== this.props.amountColumnValidated:
+      case currencyColumnValidated !== this.props.currencyColumnValidated:
+      case dateColumnValidated !== this.props.dateColumnValidated:
         this.updateSelectedTableIndexes();
         this.setWizardStep();
         break;
@@ -98,9 +104,10 @@ export default class ParseColumns extends Component {
   }
 
   setWizardStep() {
-    const progress = ((this.props.dateIndex !== null)
-      + (this.props.currencyIndex !== null)
-      + (this.props.amountIndexes.length > 0)
+    const progress = (
+      (this.props.dateIndex !== null && this.props.dateColumnValidated)
+      + (this.props.currencyIndex !== null && this.props.currencyColumnValidated)
+      + (this.props.amountIndexes.length > 0 && this.props.amountColumnValidated)
       + (this.props.staticToCurrency !== null))
       / 3;
 
