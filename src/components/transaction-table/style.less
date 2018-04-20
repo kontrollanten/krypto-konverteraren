@@ -1,50 +1,35 @@
 @import '~style/variables';
 
-.ParseTable {
-  overflow: auto;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  border: 1px solid @brand-primary;
-  border-radius: 20px;
-  margin: 20px 0;
-  border-spacing: 0;
-  overflow-y: hidden;
+.Clickable {
+  cursor: pointer;
 
-  &.Clickable {
-    cursor: pointer;
-
-    td:hover::after {
-      content: "";
-      position: absolute;
-      background-color: fade(@brand-primary, 20%);
-      left: 0;
-      top: -5000px;
-      height: 10000px;
-      width: 100%;
-      z-index: -1;
-    }
-  }
-
-  tr:nth-child(even) {
+  td:hover::after {
+    content: "";
+    position: absolute;
     background-color: fade(@brand-primary, 20%);
+    left: 0;
+    top: -5000px;
+    height: 10000px;
+    width: 100%;
+    z-index: -1;
   }
-
-  td {
-    position: relative;
-    white-space: nowrap;
-    padding: 15px 5px;
-
-    &.Selected {
-      background: @brand-primary;
-      color: #fff;
-
-      &:hover {
-        cursor: default;
-      }
-    }
-  }
-
 }
 
+tr:nth-child(even) {
+  background-color: fade(@brand-primary, 20%);
+}
+
+td {
+  position: relative;
+  white-space: nowrap;
+  padding: 15px 5px;
+
+  &.Selected {
+    background: @brand-primary;
+    color: #fff;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+}

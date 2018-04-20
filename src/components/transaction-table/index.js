@@ -1,5 +1,6 @@
 import { h } from 'preact';
 
+import Table from '../table';
 import styles from './style.less';
 
 export default ({
@@ -8,7 +9,7 @@ export default ({
   selectedFields,
   onClick,
 }) => (
-  <table className={[styles.ParseTable].concat(onClick && styles.Clickable).join(' ')}>
+  <Table className={[styles.ParseTable].concat(onClick && styles.Clickable).join(' ')}>
     {headerRows
       .map(row => (
         <tr>{row.map(col => <th>{col}</th>)}</tr>
@@ -34,5 +35,5 @@ export default ({
           }
         </tr>)
       )}
-  </table>
+  </Table>
 );
