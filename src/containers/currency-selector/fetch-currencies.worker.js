@@ -1,7 +1,21 @@
 const fetchCurrencies = () => {
   return fetch('https://min-api.cryptocompare.com/data/all/coinlist')
     .then(response => response.json())
-    .then(jsonResponse => Object.values(jsonResponse.Data));
+    .then(jsonResponse => Object.values(jsonResponse.Data))
+    .then(currencies => [...currencies,
+      {
+        FullName: 'Svenska kronor',
+        Symbol: 'SEK',
+      },
+      {
+        FullName: 'EUR',
+        Symbol: 'EUR',
+      },
+      {
+        FullName: 'USD',
+        Symbol: 'USD',
+      },
+    ]);
 };
 
 const sortCurrencies = currencies => {
