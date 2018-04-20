@@ -133,6 +133,7 @@ export default class ParseColumns extends Component {
             progress={this.state.progress}
             validatedKeys={{
               amount: this.props.amountColumnValidated,
+              currency: this.props.currencyColumnValidated,
               date: this.props.dateColumnValidated,
             }}
             validating={this.props.validating}

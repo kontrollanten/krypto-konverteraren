@@ -13,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     amountColumnValidated: validationState.amountColumnValidated,
     amountIndexes: fileState.amountIndexes,
+    currencyColumnValidated: validationState.currencyColumnValidated,
     currencyIndex: fileState.currencyIndex,
     currencies: state.ConvertCurrency.currencies,
     dateColumnValidated: validationState.dateColumnValidated,

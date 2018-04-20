@@ -45,6 +45,7 @@ export default ({
     .map(step => ({
       ...step,
       className: [styles.ListItem].concat(
+        validatedKeys[step.key] ? styles.Validated : '',
         (step.nr / 3) <= progress && currentKey !== step.key ? styles.Done : '',
         (step.nr / 3) > progress && currentKey !== step.key ? styles.ToBeDone : '',
         currentKey === step.key ? styles.Current : ''
