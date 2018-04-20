@@ -26,6 +26,7 @@ export default class ParseColumns extends Component {
     this.handleResolveKey = this.handleResolveKey.bind(this);
     this.handleSelectCurrency = this.handleSelectCurrency.bind(this);
     this.handleClickShowCurrHelp = this.handleClickShowCurrHelp.bind(this);
+    this.handleCloseTransformHelper = this.handleCloseTransformHelper.bind(this);
   }
 
   componentDidUpdate({
@@ -104,6 +105,14 @@ export default class ParseColumns extends Component {
     history.push(this.props.url.split('/').slice(0, -1).concat(nextKey).join('/'));
   }
 
+  handleCloseTransformHelper() {
+    this.props.onUpdateParseIndex({
+      index: this.props.currencyIndex,
+      key: this.props.parseKey,
+      filename: this.props.filename,
+    });
+  }
+
   updateSelectedTableIndexes() {
     const indexes = [...this.props.amountIndexes, this.props.currencyIndex, this.props.dateIndex];
 
@@ -129,7 +138,12 @@ export default class ParseColumns extends Component {
     return (
       <div className={styles.Container}>
         {this.state.showCurrencyHelper && (
-          <TransformCurrencyNames index={this.props.currencyIndex} rows={this.props.unparsedResults} filename={this.props.filename} />
+          <TransformCurrencyNames
+            index={this.props.currencyIndex}
+            onClose={this.handleCloseTransformHelper}
+            rows={this.props.unparsedResults}
+            filename={this.props.filename}
+          />
         )}
         <Header>
           <h1>Tolka filen {this.props.filename}</h1>

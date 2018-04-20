@@ -39,7 +39,7 @@ export default class TransformCurrencyNames extends Component {
 
   render() {
     return (
-      <Dialog ref={this.setElemRef}>
+      <Dialog ref={this.setElemRef} onAccept={this.props.onClose}>
         <Dialog.Header>Hantera felaktiga valutanamn</Dialog.Header>
         <Dialog.Body>
           <p>Alla kryptoplånböcker samt växlingssidor tillhandahåller tyvärr inte CSV-filer i maskinärt avläsbara format.</p>
@@ -77,7 +77,7 @@ export default class TransformCurrencyNames extends Component {
           </Table>
         </Dialog.Body>
         <Dialog.Footer>
-          <Dialog.FooterButton accept={true}>Okej</Dialog.FooterButton>
+          <Dialog.FooterButton accept>Okej</Dialog.FooterButton>
         </Dialog.Footer>
       </Dialog>
     );
