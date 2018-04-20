@@ -29,7 +29,7 @@ export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date
   // CryptoCompare responds with the last two hours prices so we add one hour to our req
   const fromTs = moment(date).subtract(1, 'hour').unix();
 
-  const value = fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=${fromCurrency}&tsym=${toCurrency}&toTs=${fromTs}&extraParams=krypto-konverteraren&limit=1`)
+  const value = fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=${fromCurrency}&tsym=${toCurrency}&toTs=${fromTs}&extraParams=k4-krypto&limit=1`)
     .then(response => response.json())
     .then(jsonResponse => {
       const value = jsonResponse.Data
