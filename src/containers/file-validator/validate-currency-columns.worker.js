@@ -1,9 +1,3 @@
-const fetchCurrencies = () => {
-  return fetch('https://min-api.cryptocompare.com/data/all/coinlist')
-    .then(response => response.json())
-    .then(jsonResponse => Object.values(jsonResponse.Data));
-};
-
 const createCurrencyStore = currencies => 
   currencies
     .reduce((out, currency) => {
@@ -23,14 +17,18 @@ const getInvalidRow = (rows, index) => {
 };
 
 self.addEventListener('message', event => {
-  const { rows, currencyIndex } = event.data;
+  const {
+    rows,
+    currencies,
+    currencyIndex,
+  } = event.data;
 
-  getInvalidRow(rows, currencyIndex)
-    .then(row => {
-      if (row) {
-        return self.postMessage({ errorMessage: `Vi känner inte igen valutan ${row[currencyIndex]}` });
-      }
+  const currencyStore = createCurrencyStore(currencies);
+  const invalidRow = rows.find(row => currencyStore[row[currencyIndex]] !== true);
 
-      self.postMessage({});
-    });
+  if (invalidRow) {
+    return self.postMessage({ errorMessage: `Vi känner inte igen valutan ${invalidRow[currencyIndex]}` });
+  }
+
+  self.postMessage({});
 });

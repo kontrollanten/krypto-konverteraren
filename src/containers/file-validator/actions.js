@@ -76,12 +76,13 @@ export const validateColumnCount = (filename, rows) => {
 };
 
 export const validateCurrencyColumns = ({ filename, rows, currencyIndex }) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({
       type: VALIDATE_CURRENCY_COLUMNS,
       filename,
     });
 
+    const { currencies } = getState().CurrencySelector;
     const worker = new ValidateCurrencyColumnsWorker();
     worker.addEventListener('message', event => {
       const { errorMessage } = event.data;
@@ -100,7 +101,11 @@ export const validateCurrencyColumns = ({ filename, rows, currencyIndex }) => {
       });
     });
 
-    worker.postMessage({ rows, currencyIndex });
+    worker.postMessage({
+      currencies,
+      currencyIndex,
+      rows,
+    });
   };
 };
 
