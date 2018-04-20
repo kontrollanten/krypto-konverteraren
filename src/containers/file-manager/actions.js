@@ -1,6 +1,5 @@
-import moment from 'moment';
-import throat from 'throat';
 import { validateAmountColumns, validateColumnCount, validateCurrencyColumns, validateDateColumns } from '../file-validator/actions';
+import ConvertCurrenciesWorker from './convert-currencies.worker';
 import ParseCsvWorker from './parse-csv.worker';
 import {
   PARSE_RESULTS,
@@ -14,42 +13,6 @@ import {
   UPDATE_CURRENCY_INDEX,
   UPDATE_DATE_INDEX,
 } from './types';
-
-const valueConvertCache = {};
-
-export const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => {
-  const cacheKey = fromCurrency.concat(toCurrency, date);
-  const cache = valueConvertCache[cacheKey];
-
-  if (cache) {
-    return cache;
-  }
-
-  const toTs = moment(date).unix();
-  // CryptoCompare responds with the last two hours prices so we add one hour to our req
-  const fromTs = moment(date).subtract(1, 'hour').unix();
-
-  const value = fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=${fromCurrency}&tsym=${toCurrency}&toTs=${fromTs}&extraParams=k4-krypto&limit=1`)
-    .then(response => response.json())
-    .then(jsonResponse => {
-      const value = jsonResponse.Data
-        .map(data => {
-          return {
-            ...data,
-            middlePrice: (data.open + data.close) / 2,
-          };
-        })
-        .reduce((prev, curr) => {
-          return (Math.abs(curr.time - toTs) < Math.abs(prev.time - toTs) ? curr : prev);
-        }, { time: 0 });
-
-      return value;
-    });
-
-  valueConvertCache[cacheKey] = value;
-
-  return value;
-};
 
 export const downloadParsedResults = filename => {
   return (dispatch, getState) => {
@@ -79,17 +42,12 @@ export const parseResults = (filename) => {
   return (dispatch, getState) => {
     const { 
       amountIndexes,
-      currencyIndex,
-      dateIndex,
       headerRow,
-      staticToCurrency,
       unparsedResults,
     } = getState().FileManager[filename];
-    const toCurrency = 'SEK';
-    const parsedResults = [...unparsedResults];
-    const colNumbers = parsedResults[0].length;
-    let nrParsedResults = 0;
 
+    const toCurrency = 'SEK';
+    const colNumbers = unparsedResults[0].length;
     const convertMapping = amountIndexes
       .filter(i => i !== null)
       .map((fromIndex, i) => ({ fromIndex, toIndex: i + colNumbers }));
@@ -101,48 +59,56 @@ export const parseResults = (filename) => {
       filename,
     });
 
-    const throttle = throat(10);
+    const parsedResults = [...unparsedResults];
+    let nrParsedResults = 0;
 
-    unparsedResults
-      .map(row => ({
-        fromCurrency: row[currencyIndex],
-        date: row[dateIndex],
-        origRow: row,
-      }))
-        .forEach((row, index) => {
-          throttle(fetchHistoricalValueForCurrency.bind(null, {
-            fromCurrency: staticToCurrency || row.fromCurrency,
-            date: row.date,
-            toCurrency,
-          }))
-            .then(({ middlePrice }) => {
-              if (isNaN(middlePrice)) {
-                throw Error();
-              }
+    const worker = new ConvertCurrenciesWorker();
+    worker.addEventListener('message', ({ data }) => {
+      const {
+        errorMessage,
+        index,
+        middlePrice,
+        row,
+      } = data;
 
-              convertMapping
-                .forEach(({ fromIndex, toIndex }) => {
-                  parsedResults[index][toIndex] = middlePrice * row.origRow[fromIndex];
-                });
-
-              nrParsedResults += 1;
-
-              dispatch({
-                type: PARSE_RESULTS_SUCCESS,
-                filename,
-                parsedResults: [...parsedResults],
-                nrParsedResults,
-              });
-            })
-            .catch(error => {
-              parsedResults[index] = null;
-              dispatch({
-                type: PARSE_RESULTS_FAILURE,
-                filename,
-                row: index + 1,
-              });
-            });
+      if (errorMessage) {
+        parsedResults[index] = null;
+        return dispatch({
+          type: PARSE_RESULTS_FAILURE,
+          filename,
+          row: index + 1,
         });
+      }
+
+      nrParsedResults += 1;
+
+      convertMapping
+        .forEach(({ fromIndex, toIndex }) => {
+          parsedResults[index][toIndex] = middlePrice * row[fromIndex];
+        });
+
+      dispatch({
+        type: PARSE_RESULTS_SUCCESS,
+        filename,
+        parsedResults: [...parsedResults],
+        nrParsedResults,
+      });
+    });
+
+    const { 
+      currencyIndex,
+      dateIndex,
+      staticToCurrency,
+      unparsedResults: rows,
+    } = getState().FileManager[filename];
+
+    worker.postMessage({
+      currencyIndex,
+      dateIndex,
+      rows,
+      staticToCurrency,
+      toCurrency,
+    });
   };
 };
 
