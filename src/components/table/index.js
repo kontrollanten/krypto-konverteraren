@@ -6,7 +6,7 @@ export default ({
   className = '',
   label,
 }) => (
-  <table className={styles.Table.concat(className)}>
+  <table className={styles.Table.concat(' ', className)}>
     {label && (
       <tr>
         <th colspan="1000">

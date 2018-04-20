@@ -2,9 +2,6 @@
 
 .Table {
   overflow: auto;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
   width: 100%;
   border: 1px solid @brand-primary;
   border-radius: 20px;
@@ -14,5 +11,15 @@
 
   tr:first-child th {
     padding: 10px;
+  }
+
+  tr:nth-child(even) {
+    background-color: fade(@brand-primary, 20%);
+  }
+
+  td {
+    position: relative;
+    white-space: nowrap;
+    padding: 15px 5px;
   }
 }
