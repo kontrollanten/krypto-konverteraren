@@ -91,6 +91,7 @@ export const parseResults = (filename) => {
     let nrParsedResults = 0;
 
     const convertMapping = amountIndexes
+      .filter(i => i !== null)
       .map((fromIndex, i) => ({ fromIndex, toIndex: i + colNumbers }));
 
     dispatch({
