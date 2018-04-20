@@ -20,7 +20,7 @@ const convertCurrencies = ({
       }))
       .then(({ middlePrice }) => {
         if (isNaN(middlePrice)) {
-          throw Error();
+          throw Error('Ett okänt fel uppstod.');
         }
 
         return middlePrice;
@@ -44,6 +44,11 @@ const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => 
 
   const value = fetch(`https://min-api.cryptocompare.com/data/histohour?fsym=${fromCurrency}&tsym=${toCurrency}&toTs=${fromTs}&extraParams=k4-krypto&limit=1`)
     .then(response => response.json())
+    .then(jsonResponse => {
+      if (jsonResponse.Response === 'Error') {
+        throw Error(jsonResponse.Message);
+      }
+    })
     .then(jsonResponse => {
       const value = jsonResponse.Data
         .map(data => {
@@ -93,6 +98,7 @@ self.addEventListener('message', ({ data }) => {
         .catch(error => {
           self.postMessage({
             errorMessage: error.message,
+            index,
           });
         });
     });

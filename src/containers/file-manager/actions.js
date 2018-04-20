@@ -63,18 +63,19 @@ export const parseResults = (filename) => {
     let nrParsedResults = 0;
 
     const worker = new ConvertCurrenciesWorker();
-    worker.addEventListener('message', ({ data }) => {
+    worker.addEventListener('message', event => {
       const {
         errorMessage,
         index,
         middlePrice,
         row,
-      } = data;
+      } = event.data;
 
-      if (errorMessage) {
+      if (errorMessage !== undefined) {
         parsedResults[index] = null;
         return dispatch({
           type: PARSE_RESULTS_FAILURE,
+          errorMessage,
           filename,
           row: index + 1,
         });
