@@ -5,11 +5,15 @@ import styles from './style.less';
 
 export default ({
   headerRows = [],
+  label,
   rows,
   selectedFields,
   onClick,
 }) => (
-  <Table className={[styles.ParseTable].concat(onClick && styles.Clickable).join(' ')}>
+  <Table
+    className={[styles.ParseTable].concat(onClick && styles.Clickable).join(' ')}
+    label={label}
+  >
     {headerRows
       .map(row => (
         <tr>{row.map(col => <th>{col}</th>)}</tr>
