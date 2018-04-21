@@ -48,6 +48,8 @@ const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => 
       if (jsonResponse.Response === 'Error') {
         throw Error(jsonResponse.Message);
       }
+
+      return jsonResponse;
     })
     .then(jsonResponse => {
       const value = jsonResponse.Data
