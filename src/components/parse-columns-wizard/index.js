@@ -29,6 +29,7 @@ export default ({
     {
       icon: 'monetization_on',
       primaryText: 'Klicka på de kolumner som innehåller transaktionsbelopp',
+      secondaryText: 'De kolumner vars belopp du vill konvertera till SEK.',
       key: 'amount',
     },
     {
