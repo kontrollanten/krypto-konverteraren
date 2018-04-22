@@ -1,6 +1,7 @@
 import moment from 'moment';
 import throat from 'throat';
 
+const throttle = throat(10);
 const convertCurrencies = ({
   currencyIndex,
   dateIndex,
@@ -8,16 +9,30 @@ const convertCurrencies = ({
   staticToCurrency,
   toCurrency,
 }) => {
-  const throttle = throat(10);
+  let rateLimitExceeded = false;
+  const rateLimitVerify = options => {
+    if (rateLimitExceeded) {
+      throw Error();
+    }
+
+    return fetchHistoricalValueForCurrency(options);
+  };
 
   return rows
     .map(row => ({
       row,
-      response: throttle(fetchHistoricalValueForCurrency.bind(null, {
+      response: throttle(rateLimitVerify.bind(null, {
         fromCurrency: staticToCurrency || row[currencyIndex],
         date: row[dateIndex],
         toCurrency,
       }))
+      .catch(error => {
+        if (error.type === 99) {
+          rateLimitExceeded = true;
+        }
+
+        throw error;
+      })
       .then(({ middlePrice }) => {
         if (isNaN(middlePrice)) {
           throw Error('Ett okänt fel uppstod.');
@@ -46,7 +61,10 @@ const fetchHistoricalValueForCurrency = ({ fromCurrency, toCurrency, date }) => 
     .then(response => response.json())
     .then(jsonResponse => {
       if (jsonResponse.Response === 'Error') {
-        throw Error(jsonResponse.Message);
+        const error = Error(jsonResponse.Message);
+        error.type = jsonResponse.Type;
+
+        throw error;
       }
 
       return jsonResponse;

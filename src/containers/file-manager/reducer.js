@@ -18,6 +18,7 @@ const initialSubstate = {
   currencyIndex: null,
   dateIndex: null,
   nrExpectedResults: 0,
+  nrParsedResults: 0,
   headerRow: [],
   staticToCurrency: null,
   unparsedResults: [],
