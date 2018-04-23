@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import Helmet from 'preact-helmet';
-import UAParser from 'ua-parser-js';
 import AsyncRoute from 'preact-async-route';
 
 import history from '../history';
@@ -12,9 +11,6 @@ import FAQ from './faq';
 import Footer from './footer';
 import Header from './header';
 import Home from './home';
-import BrowserChecker from './browser-checker';
-
-const { browser } = UAParser();
 
 export default class App extends Component {
   handleRoute = e => {
@@ -54,9 +50,6 @@ export default class App extends Component {
           <FAQ path="/fragor-och-svar" />
           <DisclaimerPage path="/ansvar-och-villkor" />
         </Router>
-        {browser.name.toLowerCase() !== 'chrome' && (
-          <BrowserChecker />
-        )}
         <Footer />
       </div>
     );

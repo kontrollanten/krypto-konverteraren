@@ -1,10 +1,14 @@
 import { h, Component } from 'preact';
+import UAParser from 'ua-parser-js';
 import Button from 'preact-material-components/Button';
 import 'preact-material-components/Button/style.css';
 import 'preact-material-components/Theme/style.css';
 import history from '../../history'; 
+import BrowserChecker from '../browser-checker';
 import ContentWrapper from '../content-wrapper';
 import styles from './style.less';
+
+const { browser } = UAParser();
 
 export default class DropHandler extends Component {
   state = {
@@ -94,6 +98,7 @@ export default class DropHandler extends Component {
   }
 
   render() {
+    console.log(browser.name);
     return (
       <ContentWrapper
         className={styles.Container}
@@ -102,6 +107,9 @@ export default class DropHandler extends Component {
         ondragleave={this.handleDragLeave}
         onDrop={this.handleDrop}
       >
+        {browser.name.toLowerCase() !== 'chrome' && (
+          <BrowserChecker />
+        )}
         <div className={styles.Description}>
           <h1>Läs av växelkurs från en CSV-fil</h1>
           <p>Ladda upp en CSV-fil för att konvertera växelkursen för
