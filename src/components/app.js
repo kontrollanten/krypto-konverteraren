@@ -4,8 +4,7 @@ import Helmet from 'preact-helmet';
 import AsyncRoute from 'preact-async-route';
 
 import history from '../history';
-import AboutK4K from './about-k4k';
-import AboutUs from './about-us';
+import InfoDialog from './info-dialog';
 import DisclaimerPage from './disclaimer-page';
 import FAQ from './faq';
 import Footer from './footer';
@@ -44,6 +43,7 @@ export default class App extends Component {
         />
 
         <Header />
+        <InfoDialog />
         <Router onChange={this.handleRoute} history={history}>
           <Home path="/" />
           <AsyncRoute path="/las-av-fil/:filename?/:action?/:param?" getComponent={this.getFileManager} />

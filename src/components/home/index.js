@@ -5,7 +5,6 @@ import Button from 'preact-material-components/Button';
 import 'preact-material-components/Button/style.css';
 import 'preact-material-components/Theme/style.css';
 import ContentWrapper from '../content-wrapper';
-import SubscribeToNewsletter from '../subscribe-to-newsletter';
 import styles from './style.less';
 
 export default () => (
