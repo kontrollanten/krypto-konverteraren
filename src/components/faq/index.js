@@ -34,7 +34,7 @@ export default () => (
     <p>Förhoppningen är att vi ska kunna fortsätta optimera och utveckla tjänsten och vi är väldigt tacksamma för bidrag. Detta kan göras via Swish till 0738 900 157. Vill du hjälpa till på annat sätt kan du kontakta oss på <a href="mailto:info@k4krypto.se">info@k4krypto.se</a>.</p>
 
     <h2>Vilka garantier finns?</h2>
-    <p>Inga. K4 Krypto är gratis just för att vi inte kan garantera att den fungerar ultimat tillsammans med samtliga växlingssiter och för alla situationer. Vad gäller skatteverkets krav har vi utgått från den information vi fått från Skatteverkets rådgivare, offentligt tryck och så som vi tolkat dessa kriterier. Varje individ ansvarar dock själv för att vara korrekt informerad och handla utefter de krav som ställs på just dennes specifika situation. Vi lämnar inte heller några garantier för beloppen som genereras.</p>
+    <p>Inga. K4 Krypto är gratis just för att vi inte kan garantera att den fungerar ultimat tillsammans med samtliga växlingssiter och för alla situationer. Vad gäller Skatteverkets krav har vi utgått från den information vi fått från Skatteverkets rådgivare, offentligt tryck och så som vi tolkat dessa kriterier. Varje individ ansvarar dock själv för att vara korrekt informerad och handla utefter de krav som ställs på just dennes specifika situation. Vi lämnar inte heller några garantier för beloppen som genereras.</p>
 
     <h2>Säkerhet och integritet då?</h2>
     <p>Vi spar inga uppgifter från våra användare. Eftersom du inte laddar upp någon information, utan endast konverterar datan lokalt går den inte via någon tredjepartsserver och vi sparar därför inga uppgifter du laddar upp.</p>
@@ -42,16 +42,16 @@ export default () => (
     <h2>Vart kan jag läsa mer om deklaration av kryptovalutor?</h2>
     <p>Vi tar inget ansvar för din deklaration och rekommenderar starkt att du läser på om hur och varför du ska deklarera samt vilka krav som ställs på dig som är skatteskyldig i Sverige. Här finns goda utgångspunkter för att lära dig mer om ämnet:</p>
     <ul>
+      <li><a href="https://www.skatteverket.se/omoss/press/pressmeddelanden/2018/2018/deklareraforsaljningavvardepapperochkryptovalutordigitalt.5.41f1c61d16193087d7f12e4d.html" target="_blank">2018-04-20: Deklarera försäljning av värdepapper och kryptovalutor digitalt</a></li>
       <li><a href="https://www.skatteverket.se/privat/skatter/vardepapper/andratillgangar/kryptovalutor.4.15532c7b1442f256bae11b60.html" target="_blank">Skatteverket om kryptovalutor</a></li>
       <li><a href="http://www.diva-portal.org/smash/get/diva2:898921/FULLTEXT01.pdf" target="_blank">Masteruppsats från Juridiska institutionen vid Uppsala gällande skatterätt och Bitcoin</a></li>
       <li><a href="http://www.dagensjuridik.se/2017/12/vardeokningen-pa-kryptovalutor-kan-fa-stora-konsekvenser-skatterattsligt" target="_blank">Debattartikel om skatterätt gällande kryptovalutor i Dagens juridik</a></li>
-      <li><a href="https://cornucopia.cornubot.se/2018/03/problem-deklarera-affarer-i-bitcoin.html" target="_blank">Conocopia, en blogg som tar upp deklaration av kryptovalutor</a></li>
     </ul>
 
     <h2>Och en sista påminnelse...</h2>
     <p>K4 Krypto avråder och tar avstånd från all typ av olaglig handel och aktivitet kopplat till kryptovalutor. Skattesmitning, på samtliga nivåer, är inte bara oetiskt utan olagligt och mycket riskfyllt och något vi starkt avråder från.</p>
 
-    <p>Vi uppmanar givetvis till eget omdöme och att varje enskild individ undersöker sin specifika situation och vilka regler som blir applicerbara. Vi ger här allmän information så som vi tolkat det sammanlagda flödet från forskning, myndigheter och media. Vi tar inget ansvar för enskilda individers agerande. Vi avsäger oss också allt ansvar för uppgifterna som lämnas in till skatteverket eller de som genereras till dig via tjänsten. Det är användarens eget ansvar att kontrollera att samtliga uppgifter stämmer. Vi lämnar heller inte några garantier kring belopp eller kursangivelse. Vi hämtar all information och kursvärde från <a href="https://cryptocompare.com" target="_blank">cryptocompare.com</a>.</p>
+    <p>Vi uppmanar givetvis till eget omdöme och att varje enskild individ undersöker sin specifika situation och vilka regler som blir applicerbara. Vi ger här allmän information så som vi tolkat det sammanlagda flödet från forskning, myndigheter och media. Vi tar inget ansvar för enskilda individers agerande. Vi avsäger oss också allt ansvar för uppgifterna som lämnas in till Skatteverket eller de som genereras till dig via tjänsten. Det är användarens eget ansvar att kontrollera att samtliga uppgifter stämmer. Vi lämnar heller inte några garantier kring belopp eller kursangivelse. Vi hämtar all information och kursvärde från <a href="https://cryptocompare.com" target="_blank">cryptocompare.com</a>.</p>
 
   </ContentWrapper>
 );

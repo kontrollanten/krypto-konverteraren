@@ -14,7 +14,7 @@ export default () => (
       <div>
         <h1>Fast med deklarationen för dina kryptovalutor?</h1>
         <h2>K4 Krypto gör valutakonverteringen åt dig!</h2>
-        <p>(Så du får fria händer att forstsätta hodla) <i class="em em-fist"></i></p>
+        <p>(Så du får fria händer att fortsätta hodla) <i class="em em-fist"></i></p>
         <div style={{ textAlign: 'center' }}>
           <Button raised >
             <a href="/las-av-fil">
@@ -38,14 +38,6 @@ export default () => (
       <div>
         <h2>Vi värnar om din integritet <i class="em em-hand"></i></h2>
         <p>K4 Krypto sparar ingen data från användarna. Hela processen sker lokalt, den går aldrig via våra servrar.</p>
-      </div>
-
-      <div> 
-        <h2>Konvertera alla dina transaktioner! <i class="em em-muscle"></i></h2>
-          <p>När du deklarerar din handel med kryptovalutor kräver ska du redogöra för alla transaktioner. Dessutom ska alla belopp konverteras till SEK så som kursen stod vid transaktionstillfället. Ja, du hör ju. Att göra detta manuellt är enormt tidskrävande och krångligt.</p>
-          <p>K4 Krypto låter dig istället konvertera dina transaktioner till SEK via ett par enkla klick. Du får sedan en färdig fil att ladda ned för din deklaration.</p>
-        <p>När du deklarerar din handel med kryptovalutor ska du deklarera all handel mellan olika kryptovalutor samt värdet av respektive transaktion i SEK.</p>
-        <p>Detta innebär för många att de behöver räkna om belopp för hundratals transaktioner.</p>
       </div>
     </div> 
   </div>

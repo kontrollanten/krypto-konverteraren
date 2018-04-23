@@ -51,8 +51,6 @@ export default class App extends Component {
         <Router onChange={this.handleRoute} history={history}>
           <Home path="/" />
           <AsyncRoute path="/las-av-fil/:filename?/:action?/:param?" getComponent={this.getFileManager} />
-          <AboutK4K path="/om-tjansten" />
-          <AboutUs path="/om-k4-krypto" />
           <FAQ path="/fragor-och-svar" />
           <DisclaimerPage path="/ansvar-och-villkor" />
         </Router>
